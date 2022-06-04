@@ -1,3 +1,4 @@
+const filterObject = require('../../utils/utils');
 const User = require('./validator');
 
 const getAllUsers = async (req, res) => {
@@ -37,6 +38,72 @@ const createUser = async (req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
+};
+
+const UpdateUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    req.body.updatedAt = Date.now();
+    const newUser = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        newUser,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
+};
+const deleteUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+      res.status(400).json({
+        status: 'fail',
+        message: 'id not found',
+      });
+    }
+    res.status(204).json({
+      status: 'success',
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
+};
+
 const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -60,4 +127,43 @@ const getCurrentUser = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, createUser, getCurrentUser };
+const updateCurrentUser = async (req, res) => {
+  try {
+    req.body.updatedAt = Date.now();
+
+    const filteredBody = filterObject(
+      req.body,
+      'fullname',
+      'phoneNumber',
+      'photo',
+      'debitCard',
+      'address',
+      'updatedAt',
+    );
+
+    const user = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: 'success',
+      message: 'data has been updated',
+      data: user,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
+};
+
+module.exports = {
+  getAllUsers,
+  createUser,
+  getUserById,
+  UpdateUserById,
+  deleteUserById,
+  getCurrentUser,
+  updateCurrentUser,
+};

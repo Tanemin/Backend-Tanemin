@@ -18,9 +18,10 @@ const plantSchema = new mongoose.Schema({
     required: [true, 'image cover is required'],
   },
   imageGalery: [String],
-  Type: [String],
-  Tags: [String],
-  Habitat: [String],
+  type: [String],
+  tags: [String],
+  season: [String],
+  habitat: [String],
   createdAt: {
     type: Date,
     default: Date.now(),

@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullname\": \"Irwan Gumilar\",\r\n    \"email\": \"iasasrwan@gmail.com\",\r\n    \"password\": \"12345678\"\r\n\r\n}",
+							"raw": "{\r\n    \"fullname\": \"asas\",\r\n    \"email\": \"asas@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -60,7 +60,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"iasasrwan@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n    \"email\": \"sasa@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -92,38 +92,208 @@
 			"name": "Users",
 			"item": [
 				{
-					"name": "Get All Users",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
+					"name": "Simple CRUD",
+					"item": [
+						{
+							"name": "Get All Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/users/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:3000/api/v1/users/",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"users",
-								""
-							]
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullname\": \"asas\",\r\n    \"email\": \"asas@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/users/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullname\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/users/629af420dbde6fd6e3306956",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"629af420dbde6fd6e3306956"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullname\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/users/629b0ef3cec184b887a3de4d",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"629b0ef3cec184b887a3de4d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullname\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/users/629b0ef3cec184b887a3de4d",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"629b0ef3cec184b887a3de4d"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "Get Current Logged In User",
@@ -158,6 +328,259 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Current Logged In User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Irwan Gumilar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/api/v1/users/profile",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Plants",
+			"item": [
+				{
+					"name": "Simple CRUD",
+					"item": [
+						{
+							"name": "Get All Plants",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/plants/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"plants",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Plant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"plantName\": \"Gajah mada 4\",\r\n    \"price\": 12000,\r\n    \"imageCover\": \"img Cover\",\r\n    \"imageGalery\": [\r\n        \"img 1\", \r\n        \"img 2\", \r\n        \"img 3\"\r\n    ],\r\n    \"type\": [\r\n        \"Tanaman Hias\", \r\n        \"Luar Ruangan\"\r\n    ],\r\n    \"tags\" : [\r\n        \"tag 1\",\r\n        \"tag 2\",\r\n        \"tag 3\"\r\n    ],\r\n    \"season\": [\r\n        \"Musim Hujan\",\r\n        \"Musim Panas\"\r\n    ],\r\n    \"habitat\": [\r\n        \"Perkotaan\"\r\n    ]\r\n\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/plants/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"plants",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Plant By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/plants/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"plants",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Plant By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"plantName\": \"Gajah Mada 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/plants/629b198ad0453c62ffb32057",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"plants",
+										"629b198ad0453c62ffb32057"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Plant By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/plants/629b19e5d0453c62ffb32060",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"plants",
+										"629b19e5d0453c62ffb32060"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

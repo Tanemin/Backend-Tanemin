@@ -8,9 +8,7 @@ dotenv.config({ path: './.dev.env' });
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPOTION: Shutting down...');
   console.log(err.name, err.message);
-  // server.close(() => {
   process.exit(1);
-  // });
 });
 
 const DB = process.env.DATABASE;
