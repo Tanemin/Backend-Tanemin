@@ -23,9 +23,14 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user',
   },
+  phoneNumber: Number,
   photo: String,
   debitCard: [String],
-  address: String,
+  address: {
+    city: String,
+    province: String,
+    address: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
