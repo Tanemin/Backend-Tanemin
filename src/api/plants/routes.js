@@ -1,4 +1,6 @@
 const express = require('express');
+
+const reviewRouter = require('../reviews/routes');
 const {
   getAllPlants,
   createPlant,
@@ -8,6 +10,8 @@ const {
 } = require('./handler');
 
 const plantRouter = express.Router();
+
+plantRouter.use('/:plantId/reviews/', reviewRouter);
 
 plantRouter.route('/').get(getAllPlants).post(createPlant);
 plantRouter

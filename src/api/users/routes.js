@@ -1,5 +1,10 @@
 const express = require('express');
-const { signUp, signIn, protect } = require('../authentications/handler');
+const {
+  signUp,
+  signIn,
+  protect,
+  forgotPassword,
+} = require('../authentications/handler');
 const {
   getAllUsers,
   createUser,
@@ -14,6 +19,9 @@ const userRouter = express.Router();
 
 userRouter.route('/signup').post(signUp);
 userRouter.route('/signin').post(signIn);
+
+userRouter.route('/forgotPassword').post(forgotPassword);
+
 userRouter
   .route('/profile')
   .get(protect, getCurrentUser)

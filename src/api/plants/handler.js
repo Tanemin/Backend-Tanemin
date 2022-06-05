@@ -39,7 +39,7 @@ const createPlant = async (req, res) => {
 
 const getPlantById = async (req, res) => {
   try {
-    const plant = await Plant.findById(req.params.id);
+    const plant = await Plant.findById(req.params.id).populate('reviews');
 
     res.status(200).json({
       status: 'success',
@@ -102,6 +102,7 @@ const deletePlantById = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   getAllPlants,
   createPlant,
