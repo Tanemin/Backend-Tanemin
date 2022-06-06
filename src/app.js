@@ -1,10 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const plantRouter = require('./api/plants/routes');
 const reviewRouter = require('./api/reviews/routes');
 const userRouter = require('./api/users/routes');
 
 const app = express();
+app.use(cors());
 
 // 1) MIDDLEWARES
 
