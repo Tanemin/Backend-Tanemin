@@ -4,6 +4,7 @@ const {
   signIn,
   protect,
   forgotPassword,
+  generateAccess,
 } = require('../authentications/handler');
 const {
   getAllUsers,
@@ -27,11 +28,14 @@ userRouter
   .get(protect, getCurrentUser)
   .patch(protect, updateCurrentUser);
 
-userRouter.route('/').get(protect, getAllUsers).post(createUser);
+userRouter
+  .route('/')
+  .get(protect, generateAccess('administrator'), getAllUsers)
+  .post(createUser);
 userRouter
   .route('/:id')
   .get(getUserById)
   .patch(UpdateUserById)
-  .delete(deleteUserById);
+  .delete(protect, generateAccess('administrator'), deleteUserById);
 
 module.exports = userRouter;

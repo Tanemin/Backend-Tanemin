@@ -1,4 +1,5 @@
 const express = require('express');
+const { protect, generateAccess } = require('../authentications/handler');
 
 const reviewRouter = require('../reviews/routes');
 const {
@@ -13,11 +14,14 @@ const plantRouter = express.Router();
 
 plantRouter.use('/:plantId/reviews/', reviewRouter);
 
-plantRouter.route('/').get(getAllPlants).post(createPlant);
+plantRouter
+  .route('/')
+  .get(getAllPlants)
+  .post(protect, generateAccess('administrator'), createPlant);
 plantRouter
   .route('/:id')
   .get(getPlantById)
-  .patch(UpdatePlantById)
-  .delete(deletePlantById);
+  .patch(protect, generateAccess('administrator'), UpdatePlantById)
+  .delete(protect, generateAccess('administrator'), deletePlantById);
 
 module.exports = plantRouter;

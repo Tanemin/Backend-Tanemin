@@ -35,6 +35,10 @@ reviewSchema.pre(/^find/, function (next) {
   });
   next();
 });
+reviewSchema.pre(/^find/, function (next) {
+  this.select('-__v');
+  next();
+});
 
 const Review = mongoose.model('Review', reviewSchema);
 

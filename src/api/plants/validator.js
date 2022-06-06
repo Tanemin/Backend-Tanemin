@@ -6,6 +6,10 @@ const plantSchema = new mongoose.Schema(
       type: String,
       required: [true, 'name is required'],
     },
+    description: {
+      type: String,
+      required: [true, 'description is required'],
+    },
     price: {
       type: Number,
       required: [true, 'price is required'],
@@ -19,6 +23,9 @@ const plantSchema = new mongoose.Schema(
       required: [true, 'image cover is required'],
     },
     imageGalery: [String],
+    difficulty: String,
+    height: Number,
+    diameter: Number,
     type: [String],
     tags: [String],
     season: [String],
@@ -34,11 +41,18 @@ const plantSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   },
 );
-plantSchema.virtual('durationWeeks').get(() => 7);
+
+// Virtual populate
 plantSchema.virtual('reviews', {
   ref: 'Review',
   foreignField: 'plant',
   localField: '_id',
+});
+
+// Query Middleware
+plantSchema.pre(/^find/, function (next) {
+  this.select('-__v');
+  next();
 });
 
 const Plant = mongoose.model('Plant', plantSchema);

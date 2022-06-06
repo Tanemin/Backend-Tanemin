@@ -2,14 +2,14 @@ const Plant = require('./validator');
 
 const getAllPlants = async (req, res) => {
   try {
-    const plants = await Plant.find();
+    const plants = await Plant.find().select(
+      'plantName price imageCover stock diameter height',
+    );
 
     res.status(200).json({
       status: 'success',
-      results: plants.length,
-      data: {
-        plants,
-      },
+      total: plants.length,
+      result: plants,
     });
   } catch (error) {
     res.status(404).json({
