@@ -2,7 +2,9 @@ const Review = require('./validator');
 
 const getAllReview = async (req, res) => {
   try {
-    const review = await Review.find();
+    let filter = {};
+    if (req.params.plantId) filter = { plant: req.params.plantId };
+    const review = await Review.find(filter);
 
     // console.log(req.user.id + 'hha');
 
