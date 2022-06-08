@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullname\": \"admin\",\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"role\": \"administrator\"\r\n}",
+							"raw": "{\r\n    \"fullname\": \"via\",\r\n    \"email\": \"via@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"role\": \"administrator\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -379,7 +379,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullname\": \"Irwan Gumilar\"\r\n}",
+							"raw": "{\r\n    \"photo\": \"https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -454,6 +454,18 @@
 										"v1",
 										"plants",
 										""
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "-ratingsAverage",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "price",
+											"disabled": true
+										}
 									]
 								}
 							},
@@ -505,20 +517,10 @@
 						{
 							"name": "Get Plant By Id",
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{jwt}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "127.0.0.1:3000/api/v1/plants/629dc41024029026327912ed",
+									"raw": "127.0.0.1:3000/api/v1/plants/629dc41024029026327912efs",
 									"host": [
 										"127",
 										"0",
@@ -530,7 +532,7 @@
 										"api",
 										"v1",
 										"plants",
-										"629dc41024029026327912ed"
+										"629dc41024029026327912efs"
 									]
 								}
 							},
@@ -553,7 +555,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"plantName\": \"Gajah Mada 2\"\r\n}",
+									"raw": "{\r\n    \"price\": 12000\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -561,7 +563,7 @@
 									}
 								},
 								"url": {
-									"raw": "127.0.0.1:3000/api/v1/plants/629b198ad0453c62ffb32057",
+									"raw": "127.0.0.1:3000/api/v1/plants/629dc97d35ef6b513246f775",
 									"host": [
 										"127",
 										"0",
@@ -573,7 +575,7 @@
 										"api",
 										"v1",
 										"plants",
-										"629b198ad0453c62ffb32057"
+										"629dc97d35ef6b513246f775"
 									]
 								}
 							},
@@ -595,7 +597,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "127.0.0.1:3000/api/v1/plants/629dc99335ef6b513246f779",
+									"raw": "127.0.0.1:3000/api/v1/plants/629dc41024029026327912efs",
 									"host": [
 										"127",
 										"0",
@@ -607,7 +609,7 @@
 										"api",
 										"v1",
 										"plants",
-										"629dc99335ef6b513246f779"
+										"629dc41024029026327912efs"
 									]
 								}
 							},
@@ -838,7 +840,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "127.0.0.1:3000/api/v1/plants/629b19e1d0453c62ffb3205e/reviews",
+							"raw": "127.0.0.1:3000/api/v1/plants/629dc42124029026327912f9/reviews",
 							"host": [
 								"127",
 								"0",
@@ -850,7 +852,7 @@
 								"api",
 								"v1",
 								"plants",
-								"629b19e1d0453c62ffb3205e",
+								"629dc42124029026327912f9",
 								"reviews"
 							]
 						}
@@ -874,7 +876,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"review\": \"hebat sekali\",\r\n    \"rating\": 5\r\n}",
+							"raw": "{\r\n    \"review\": \"a naise bro\",\r\n    \"rating\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -882,7 +884,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:3000/api/v1/plants/629b19e1d0453c62ffb3205e/reviews",
+							"raw": "127.0.0.1:3000/api/v1/plants/629dc42224029026327912fb/reviews",
 							"host": [
 								"127",
 								"0",
@@ -894,7 +896,7 @@
 								"api",
 								"v1",
 								"plants",
-								"629b19e1d0453c62ffb3205e",
+								"629dc42224029026327912fb",
 								"reviews"
 							]
 						}
