@@ -1,62 +1,47 @@
 const filterObject = require('../../utils/utils');
 const User = require('./validator');
 
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find().select('fullname email role');
 
     res.status(200).json({
       status: 'success',
-      results: users.length,
-      data: {
-        users,
-      },
+      length: users.length,
+      result: users,
     });
   } catch (error) {
-    res.status(404).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const newUser = await User.create(req.body);
 
     res.status(200).json({
       status: 'success',
-      data: {
-        newUser,
-      },
+      result: newUser,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
 
     res.status(200).json({
       status: 'success',
-      data: {
-        user,
-      },
+      result: user,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const UpdateUserById = async (req, res) => {
+const UpdateUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -68,18 +53,13 @@ const UpdateUserById = async (req, res) => {
 
     res.status(200).json({
       status: 'success',
-      data: {
-        newUser,
-      },
+      result: newUser,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
-const deleteUserById = async (req, res) => {
+const deleteUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -92,42 +72,29 @@ const deleteUserById = async (req, res) => {
     }
     res.status(204).json({
       status: 'success',
-      data: {
-        user,
-      },
+      result: user,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const getCurrentUser = async (req, res) => {
+const getCurrentUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) {
-      res.status(400).json({
-        status: 'fail',
-        message: 'User not found',
-      });
+      next('User not found', 400);
     }
     res.status(200).json({
       status: 'success',
-      data: {
-        data: user,
-      },
+      result: user,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const updateCurrentUser = async (req, res) => {
+const updateCurrentUser = async (req, res, next) => {
   try {
     req.body.updatedAt = Date.now();
 
@@ -148,13 +115,10 @@ const updateCurrentUser = async (req, res) => {
     res.status(200).json({
       status: 'success',
       message: 'data has been updated',
-      data: user,
+      result: user,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 

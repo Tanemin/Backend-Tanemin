@@ -48,5 +48,11 @@ class APIFeatures {
 
     return this;
   }
+
+  search() {
+    // const name = this.queryString.search;
+    // this.query.find({ slug: new RegExp(`^${name}$`, 'i') });
+    return this;
+  }
 }
 module.exports = APIFeatures;

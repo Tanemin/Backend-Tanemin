@@ -1,66 +1,52 @@
+/* eslint-disable consistent-return */
+const AppError = require('../../exceptions/app-error');
 const Review = require('./validator');
 
-const getAllReview = async (req, res) => {
+const getAllReview = async (req, res, next) => {
   try {
     let filter = {};
     if (req.params.plantId) filter = { plant: req.params.plantId };
     const review = await Review.find(filter);
 
-    // console.log(req.user.id + 'hha');
-
     res.status(200).json({
       status: 'success',
-      results: review.length,
-      data: {
-        review,
-      },
+      length: review.length,
+      result: review,
     });
   } catch (error) {
-    res.status(404).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const createReview = async (req, res) => {
+const createReview = async (req, res, next) => {
   try {
     const review = await Review.create(req.body);
-    // console.log(req.user.id);
 
     res.status(200).json({
       status: 'success',
-      data: {
-        review,
-      },
+      result: review,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const getReviewById = async (req, res) => {
+const getReviewById = async (req, res, next) => {
   try {
-    const plant = await Review.findById(req.params.id);
-
+    const review = await Review.findById(req.params.id);
+    if (!review) {
+      return next(new AppError('No Review found with that id', 404));
+    }
     res.status(200).json({
       status: 'success',
-      data: {
-        plant,
-      },
+      result: review,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const UpdateReviewById = async (req, res) => {
+const UpdateReviewById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -70,41 +56,33 @@ const UpdateReviewById = async (req, res) => {
       runValidators: true,
     });
 
+    if (!newReview) {
+      return next(new AppError('No Review found with that id', 404));
+    }
+
     res.status(200).json({
       status: 'success',
-      data: {
-        newReview,
-      },
+      result: newReview,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
-const deleteReviewById = async (req, res) => {
+const deleteReviewById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const review = await Review.findByIdAndDelete(id);
+
     if (!review) {
-      res.status(400).json({
-        status: 'fail',
-        message: 'id not found',
-      });
+      return next(new AppError('No Review found with that id', 404));
     }
     res.status(204).json({
       status: 'success',
-      data: {
-        review,
-      },
+      result: review,
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 

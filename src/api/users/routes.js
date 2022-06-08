@@ -34,8 +34,8 @@ userRouter
   .post(createUser);
 userRouter
   .route('/:id')
-  .get(getUserById)
-  .patch(UpdateUserById)
+  .get(protect, generateAccess('administrator'), getUserById)
+  .patch(protect, generateAccess('administrator'), UpdateUserById)
   .delete(protect, generateAccess('administrator'), deleteUserById);
 
 module.exports = userRouter;

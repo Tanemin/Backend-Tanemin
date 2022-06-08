@@ -19,7 +19,7 @@ reviewRouter
 reviewRouter
   .route('/:id')
   .get(getReviewById)
-  .patch(UpdateReviewById)
-  .delete(deleteReviewById);
+  .patch(protect, UpdateReviewById)
+  .delete(protect, deleteReviewById);
 
 module.exports = reviewRouter;

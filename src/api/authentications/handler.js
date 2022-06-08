@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-new */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable indent */
 const crypto = require('crypto');
@@ -7,14 +9,14 @@ const { promisify } = require('util');
 
 const User = require('../users/validator');
 const sendEmail = require('../../utils/email');
+const AppError = require('../../exceptions/app-error');
 
 const createToken = (id) =>
-  // eslint-disable-next-line implicit-arrow-linebreak
   jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
-const signUp = async (req, res) => {
+const signUp = async (req, res, next) => {
   try {
     req.body.password = await bcrypt.hash(req.body.password, 12);
     const newUser = await User.create(req.body);
@@ -23,27 +25,19 @@ const signUp = async (req, res) => {
     res.status(201).json({
       status: 'success',
       token,
-      data: {
-        newUser,
-      },
+      result: newUser,
     });
   } catch (error) {
-    res.status(404).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
-const signIn = async (req, res) => {
+const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      res.status(400).json({
-        status: 'fail',
-        message: 'Please provide email and password!',
-      });
+      return next(new AppError('Please provide email and password!', 400));
     }
 
     const user = await User.findOne({ email });
@@ -51,25 +45,17 @@ const signIn = async (req, res) => {
     const comparePassword = await bcrypt.compare(password, user.password);
 
     if (!user || !comparePassword) {
-      res.status(401).json({
-        status: 'fail',
-        message: 'incorrect email and password',
-      });
+      return next(new AppError('Incorrect email or password', 401));
     }
 
     const token = createToken(user.id);
     res.status(201).json({
       status: 'success',
       token,
-      data: {
-        user,
-      },
+      result: user,
     });
   } catch (error) {
-    res.status(404).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
@@ -86,10 +72,12 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
     }
     if (!token) {
-      res.status(401).json({
-        status: 'fail',
-        message: 'You are not logged in! Please log in to get access.',
-      });
+      return next(
+        new AppError(
+          'You are not logged in! Please log in to get access.',
+          401,
+        ),
+      );
     }
 
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
@@ -97,18 +85,15 @@ const protect = async (req, res, next) => {
     const currentUser = await User.findById(decoded.id);
 
     if (!currentUser) {
-      res.status(401).json({
-        status: 'fail',
-        message: 'The user belonging to this token does no longer exist.',
-      });
+      new AppError(
+        'The user belonging to this token does no longer exist.',
+        401,
+      );
     }
     req.user = currentUser;
     next();
   } catch (error) {
-    res.status(404).json({
-      status: 'fail',
-      message: error,
-    });
+    next(error);
   }
 };
 
@@ -117,22 +102,16 @@ const generateAccess =
   (...roles) =>
   (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      res.status(403).json({
-        status: 'fail',
-        message: 'You do not have permission to perform this action',
-      });
+      return next('You do not have permission to perform this action', 403);
     }
 
     next();
   };
 
-const forgotPassword = async (req, res) => {
+const forgotPassword = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    res.status(404).json({
-      status: 'fail',
-      message: 'email not found',
-    });
+    return next(new AppError('There is no user with email address.', 404));
   }
 
   const resetToken = crypto.randomBytes(32).toString('hex');
@@ -148,16 +127,23 @@ const forgotPassword = async (req, res) => {
   )}/api/v1/users/resetPassword/${encryptedToken}`;
 
   const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
-  await sendEmail({
-    email: user.email,
-    subject: 'Your password reset token (valid for 10 min)',
-    message,
-  });
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Your password reset token (valid for 10 min)',
+      message,
+    });
 
-  res.status(200).json({
-    status: 'success',
-    message: 'Token sent to email!',
-  });
+    res.status(200).json({
+      status: 'success',
+      message: 'Token sent to email!',
+    });
+  } catch (error) {
+    return next(
+      new AppError('There was an error sending the email. Try again later!'),
+      500,
+    );
+  }
 };
 
 module.exports = {

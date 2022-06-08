@@ -4,6 +4,8 @@ const cors = require('cors');
 const plantRouter = require('./api/plants/routes');
 const reviewRouter = require('./api/reviews/routes');
 const userRouter = require('./api/users/routes');
+const globalErrorHandler = require('./utils/global-error-handler');
+const AppError = require('./exceptions/app-error');
 
 const app = express();
 app.use(cors());
@@ -25,5 +27,11 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/plants', plantRouter);
 app.use('/api/v1/reviews', reviewRouter);
+
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+app.use(globalErrorHandler);
 
 module.exports = app;
