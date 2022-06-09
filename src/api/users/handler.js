@@ -81,7 +81,7 @@ const deleteUserById = async (req, res, next) => {
 
 const getCurrentUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user.id).populate('carts');
     if (!user) {
       next('User not found', 400);
     }

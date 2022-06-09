@@ -20,9 +20,6 @@ const getAllPlants = async (req, res, next) => {
 
     const plants = await features.query;
 
-    // const query = '';
-    // const plants = await Plant.find().select('plantName');
-
     res.status(200).json({
       status: 'success',
       total: plants.length,

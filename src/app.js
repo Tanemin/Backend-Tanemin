@@ -1,13 +1,19 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const plantRouter = require('./api/plants/routes');
-const reviewRouter = require('./api/reviews/routes');
-const userRouter = require('./api/users/routes');
+
 const globalErrorHandler = require('./utils/global-error-handler');
 const AppError = require('./exceptions/app-error');
 
+const plantRouter = require('./api/plants/routes');
+const reviewRouter = require('./api/reviews/routes');
+const userRouter = require('./api/users/routes');
+const CartRouter = require('./api/carts/routes');
+const TransactionRouter = require('./api/transactions/routes');
+const NotificationRouter = require('./api/notifications/routes');
+
 const app = express();
+
 app.use(cors());
 
 // 1) MIDDLEWARES
@@ -27,6 +33,9 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/plants', plantRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/carts', CartRouter);
+app.use('/api/v1/transactions', TransactionRouter);
+app.use('/api/v1/notifications', NotificationRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

@@ -60,7 +60,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n    \"email\": \"anwar@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -441,7 +441,7 @@
 									}
 								},
 								"url": {
-									"raw": "127.0.0.1:3000/api/v1/plants/",
+									"raw": "127.0.0.1:3000/api/v1/plants?search=alocasia",
 									"host": [
 										"127",
 										"0",
@@ -452,8 +452,7 @@
 									"path": [
 										"api",
 										"v1",
-										"plants",
-										""
+										"plants"
 									],
 									"query": [
 										{
@@ -465,6 +464,10 @@
 											"key": "fields",
 											"value": "price",
 											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "alocasia"
 										}
 									]
 								}
@@ -902,6 +905,422 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "Simple CRUD",
+					"item": [
+						{
+							"name": "Get All Carts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/carts",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"carts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Cart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ammount\": 5,\r\n    \"user\": \"629af420dbde6fd6e3306956\",\r\n    \"plant\": \"629dc97d35ef6b513246f775\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/carts/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Carts By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/carts/62a1720c9149c555c0f3bb5d",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"62a1720c9149c555c0f3bb5d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Cart by Id",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/carts/123",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Cart by id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/carts/123",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"123"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Simple CRUD",
+					"item": [
+						{
+							"name": "Get All Transactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/transactions/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"transactions",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Transactions",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ammount\": 5,\r\n    \"user\": \"629af420dbde6fd6e3306956\",\r\n    \"plant\": \"629dc97d35ef6b513246f775\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/transactions/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"transactions",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Transactions By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/transactions/62a19b46ae00d2baa7135ae9",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"transactions",
+										"62a19b46ae00d2baa7135ae9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Transaction by Id",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/transactions/123",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"transactions",
+										"123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Transaction by id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/transactions/62a19b46ae00d2baa7135ae9",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"transactions",
+										"62a19b46ae00d2baa7135ae9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Simple CRUD",
+					"item": [
+						{
+							"name": "Get All Notifications",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/notifications/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"notifications",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Notification",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ammount\": 5,\r\n    \"user\": \"629af420dbde6fd6e3306956\",\r\n    \"plant\": \"629dc97d35ef6b513246f775\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/notifications/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"notifications",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Notification By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/notifications/62a19b46ae00d2baa7135ae9",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"notifications",
+										"62a19b46ae00d2baa7135ae9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Notification by Id",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/notifications/123",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"notifications",
+										"123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Notification by id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/notifications/62a19b46ae00d2baa7135ae9",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"notifications",
+										"62a19b46ae00d2baa7135ae9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
