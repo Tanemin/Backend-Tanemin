@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Plant = require('../plants/validator');
 
 const transactionSchema = new mongoose.Schema({
   ammount: {
@@ -41,6 +42,32 @@ transactionSchema.pre(/^find/, function (next) {
   this.select('-__v');
 
   next();
+});
+
+transactionSchema.statics.calculateSumStocks = async function (
+  plantId,
+  ammount,
+) {
+  const stats = await this.aggregate([
+    {
+      $match: { plant: plantId },
+    },
+    {
+      $group: {
+        _id: '$plant',
+        sumSold: { $sum: '$ammount' },
+      },
+    },
+  ]);
+  const plant = await Plant.findById(plantId).select('stock plantName');
+  await Plant.findByIdAndUpdate(plantId, {
+    sold: stats[0].sumSold,
+    stock: plant.stock - ammount,
+  });
+};
+
+transactionSchema.post('save', function () {
+  this.constructor.calculateSumStocks(this.plant, this.ammount);
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

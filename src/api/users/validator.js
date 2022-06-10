@@ -46,9 +46,24 @@ const userSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   },
 );
+userSchema.pre(/^find/, function (next) {
+  this.select('-__v');
+
+  next();
+});
 
 userSchema.virtual('carts', {
   ref: 'Cart',
+  foreignField: 'user',
+  localField: '_id',
+});
+userSchema.virtual('transactions', {
+  ref: 'Transaction',
+  foreignField: 'user',
+  localField: '_id',
+});
+userSchema.virtual('notifications', {
+  ref: 'Notification',
   foreignField: 'user',
   localField: '_id',
 });

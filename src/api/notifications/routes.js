@@ -1,4 +1,5 @@
 const express = require('express');
+const { protect, generateAccess } = require('../authentications/handler');
 const {
   getAllNotifications,
   createNotification,
@@ -7,13 +8,15 @@ const {
   deleteNotificationById,
 } = require('./handler');
 
-const NotificationRouter = express.Router();
+const NotificationRouter = express.Router({ mergeParams: true });
 
-NotificationRouter.route('/').get(getAllNotifications).post(createNotification);
+NotificationRouter.route('/')
+  .get(protect, getAllNotifications)
+  .post(protect, generateAccess('administrator'), createNotification);
 
 NotificationRouter.route('/:id')
-  .get(getNotificationById)
-  .patch(updateNotificationById)
-  .delete(deleteNotificationById);
+  .get(protect, generateAccess('administrator'), getNotificationById)
+  .patch(protect, generateAccess('administrator'), updateNotificationById)
+  .delete(protect, generateAccess('administrator'), deleteNotificationById);
 
 module.exports = NotificationRouter;

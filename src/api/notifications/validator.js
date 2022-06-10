@@ -19,6 +19,10 @@ const notificationSchema = new mongoose.Schema({
     enum: ['Alert', 'Transaction', 'Account'],
     default: 'Alert',
   },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 notificationSchema.pre(/^find/, function (next) {

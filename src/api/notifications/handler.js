@@ -4,7 +4,9 @@ const Notification = require('./validator');
 
 const getAllNotifications = async (req, res, next) => {
   try {
-    const notification = await Notification.find();
+    let filter = {};
+    if (req.user) filter = { user: req.user.id };
+    const notification = await Notification.find(filter);
 
     res.status(200).json({
       status: 'success',

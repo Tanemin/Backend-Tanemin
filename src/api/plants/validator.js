@@ -15,6 +15,10 @@ const plantSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'price is required'],
     },
+    author: {
+      type: String,
+      required: [true, 'author is required'],
+    },
     ratingsAverage: {
       type: Number,
       default: 0,
@@ -27,6 +31,10 @@ const plantSchema = new mongoose.Schema(
       default: 0,
     },
     stock: {
+      type: Number,
+      default: 0,
+    },
+    sold: {
       type: Number,
       default: 0,
     },
@@ -64,10 +72,6 @@ plantSchema.virtual('reviews', {
 plantSchema.virtual('search').get(function () {
   return `${slugify(this.plantName, { lower: true })}`;
 });
-// plantSchema.pre(/^find/, function (next) {
-//   this.search = slugify(this.name, { lower: true });
-//   next();
-// });
 
 // Query Middleware
 plantSchema.pre(/^find/, function (next) {

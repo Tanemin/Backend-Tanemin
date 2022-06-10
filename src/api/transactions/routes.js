@@ -1,4 +1,5 @@
 const express = require('express');
+const { protect } = require('../authentications/handler');
 
 const {
   getAllTransactions,
@@ -8,12 +9,14 @@ const {
   deleteTransactionById,
 } = require('./handler');
 
-const TransactionRouter = express.Router();
+const TransactionRouter = express.Router({ mergeParams: true });
 
-TransactionRouter.route('/').get(getAllTransactions).post(createTransaction);
+TransactionRouter.route('/')
+  .get(protect, getAllTransactions)
+  .post(protect, createTransaction);
 TransactionRouter.route('/:id')
-  .get(getTransactionById)
-  .patch(updateTransactionById)
-  .delete(deleteTransactionById);
+  .get(protect, getTransactionById)
+  .patch(protect, updateTransactionById)
+  .delete(protect, deleteTransactionById);
 
 module.exports = TransactionRouter;

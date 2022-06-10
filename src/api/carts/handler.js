@@ -5,7 +5,9 @@ const Cart = require('./validator');
 
 const getAllCarts = async (req, res, next) => {
   try {
-    const carts = await Cart.find();
+    let filter = {};
+    if (req.user) filter = { user: req.user.id };
+    const carts = await Cart.find(filter);
 
     res.status(200).json({
       status: 'success',
@@ -94,10 +96,16 @@ const deleteCartById = async (req, res, next) => {
   }
 };
 
+const setCartAndUserId = async (req, res, next) => {
+  if (!req.body.user) req.body.user = req.user.id;
+  next();
+};
+
 module.exports = {
   getAllCarts,
   createCart,
   getCartById,
   UpdateCartById,
   deleteCartById,
+  setCartAndUserId,
 };

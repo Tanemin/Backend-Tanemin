@@ -6,6 +6,9 @@ const {
   forgotPassword,
   generateAccess,
 } = require('../authentications/handler');
+const CartRouter = require('../carts/routes');
+const NotificationRouter = require('../notifications/routes');
+const TransactionRouter = require('../transactions/routes');
 const {
   getAllUsers,
   createUser,
@@ -17,6 +20,10 @@ const {
 } = require('./handler');
 
 const userRouter = express.Router();
+
+userRouter.use('/profile/carts/', CartRouter);
+userRouter.use('/profile/notifications/', NotificationRouter);
+userRouter.use('/profile/transactions/', TransactionRouter);
 
 userRouter.route('/signup').post(signUp);
 userRouter.route('/signin').post(signIn);
