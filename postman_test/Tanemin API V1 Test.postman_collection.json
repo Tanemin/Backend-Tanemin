@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "9a9f6653-d988-4334-9476-7b753c5b7837",
+		"_postman_id": "8aeb0a6f-5d76-4f26-b8a2-0a238f5d4535",
 		"name": "Tanemin API V1 Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "16051867"
+		"_exporter_id": "17332814"
 	},
 	"item": [
 		{
@@ -776,6 +776,217 @@
 										"v1",
 										"plants",
 										"629dc41024029026327912efs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Simple CRUD",
+					"item": [
+						{
+							"name": "Get All Stores",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/store",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"store"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "-ratingsAverage",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "price",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Plant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"storeName\": \"Jaya Baru\",\r\n    \"description\": \"Toko Jaya Baru, Jaya jaya jaya!\",\r\n    \"owner\": \"Pak Jaya\",\r\n    \"price\": 27000,\r\n    \"imageCover\": \"https://www.spiralis.co.uk/wp-content/uploads/Alocasia-cuprea-Red-Secret-Jewel-Rare-Aroids-Indoor-Plants-metallic.jpg\",\r\n    \"imageGalery\": [\r\n        \"https://media.suara.com/pictures/970x544/2021/08/06/92084-tanaman-alocasia-pexelshuy-phan.jpg\", \r\n        \"https://img.era.id/xucsrdmhKSg2SZVrndKB2hdXHbshO08atlZwpgNBMsk/rs:fill:970:544/g:sm/wm:1:nowe:0:0:1/bG9jYWw6Ly8vcHVibGlzaGVycy80MzYwOC8yMDIwMTExMzE3MzItbWFpbi5jcm9wcGVkXzE2MDUyNjM1NjcuanBn.jpg\", \r\n        \"https://cdns.klimg.com/merdeka.com/i/w/news/2021/02/08/1272111/content_images/670x335/20210208115837-2-ilustrasi-alocasia-015-tantri-setyorini.jpg\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/store/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"store",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Store By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/store/62a6115193d629a85fd899fe",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"store",
+										"62a6115193d629a85fd899fe"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Store By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"owner\": \"Ujang\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/store/62a6115193d629a85fd899fe",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"store",
+										"62a6115193d629a85fd899fe"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Store By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/store/62a6115193d629a85fd899fe",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"store",
+										"62a6115193d629a85fd899fe"
 									]
 								}
 							},

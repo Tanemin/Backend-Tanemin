@@ -11,6 +11,7 @@ const userRouter = require('./api/users/routes');
 const CartRouter = require('./api/carts/routes');
 const TransactionRouter = require('./api/transactions/routes');
 const NotificationRouter = require('./api/notifications/routes');
+const storeRouter = require('./api/store/routes');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/plants', plantRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/store', storeRouter);
 app.use('/api/v1/carts', CartRouter);
 app.use('/api/v1/transactions', TransactionRouter);
 app.use('/api/v1/notifications', NotificationRouter);
