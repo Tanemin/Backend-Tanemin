@@ -15,6 +15,7 @@ const storeSchema = new mongoose.Schema(
       type: String,
       required: [true, 'owner is required'],
     },
+    contact: [String],
     ratingStore: {
       type: Number,
       default: 0,

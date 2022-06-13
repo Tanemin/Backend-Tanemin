@@ -15,10 +15,6 @@ const plantSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'price is required'],
     },
-    author: {
-      type: String,
-      required: [true, 'author is required'],
-    },
     ratingsAverage: {
       type: Number,
       default: 0,
@@ -64,6 +60,10 @@ const plantSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    viewCount: {
+      type: Number,
+      default: 0,
+    },
     searchQuery: String,
   },
   {
@@ -72,22 +72,17 @@ const plantSchema = new mongoose.Schema(
   },
 );
 
-// Virtual populate
 plantSchema.virtual('reviews', {
   ref: 'Review',
   foreignField: 'plant',
   localField: '_id',
 });
 
-// plantSchema.virtual('searchQuery').get(function () {
-//   return `${slugify(this.plantName, { lower: true })}`;
-// });
-
 plantSchema.pre('save', function (next) {
   this.searchQuery = slugify(this.plantName, { lower: true });
   next();
 });
-// Query Middleware
+
 plantSchema.pre(/^find/, function (next) {
   this.select('-__v');
   next();

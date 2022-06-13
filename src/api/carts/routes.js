@@ -1,5 +1,5 @@
 const express = require('express');
-const { protect } = require('../authentications/handler');
+const { protect, generateAccess } = require('../authentications/handler');
 
 const {
   getAllCarts,
@@ -7,15 +7,18 @@ const {
   getCartById,
   UpdateCartById,
   deleteCartById,
+  setPlantAndUserId,
 } = require('./handler');
 
 const CartRouter = express.Router({ mergeParams: true });
 
-CartRouter.route('/').get(protect, getAllCarts).post(protect, createCart);
+CartRouter.route('/')
+  .get(protect, getAllCarts)
+  .post(protect, generateAccess('user'), setPlantAndUserId, createCart);
 
 CartRouter.route('/:id')
   .get(protect, getCartById)
-  .patch(protect, UpdateCartById)
-  .delete(protect, deleteCartById);
+  .patch(protect, generateAccess('user'), UpdateCartById)
+  .delete(protect, generateAccess('user'), deleteCartById);
 
 module.exports = CartRouter;

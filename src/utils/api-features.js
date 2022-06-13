@@ -52,8 +52,8 @@ class APIFeatures {
   }
 
   search() {
-    const slugQuery = `${slugify(this.queryString.search, { lower: true })}`;
     if (this.queryString.search) {
+      const slugQuery = `${slugify(this.queryString.search, { lower: true })}`;
       this.query = this.query.find({
         searchQuery: { $regex: new RegExp(`.*${slugQuery}.*`) },
       });

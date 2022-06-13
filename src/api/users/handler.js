@@ -1,3 +1,4 @@
+const AppError = require('../../exceptions/app-error');
 const filterObject = require('../../utils/utils');
 const User = require('./validator');
 
@@ -86,7 +87,7 @@ const getCurrentUser = async (req, res, next) => {
       .populate('transactions')
       .populate('notifications');
     if (!user) {
-      next('User not found', 400);
+      next(new AppError('User not found', 400));
     }
     res.status(200).json({
       status: 'success',
