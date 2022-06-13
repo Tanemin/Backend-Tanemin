@@ -93,10 +93,17 @@ const deleteTransactionById = async (req, res, next) => {
   }
 };
 
+const setPlantAndUserId = async (req, res, next) => {
+  if (!req.body.plant) req.body.plant = req.params.plantId;
+  if (!req.body.user) req.body.user = req.user.id;
+  next();
+};
+
 module.exports = {
   getAllTransactions,
   createTransaction,
   getTransactionById,
   updateTransactionById,
   deleteTransactionById,
+  setPlantAndUserId,
 };

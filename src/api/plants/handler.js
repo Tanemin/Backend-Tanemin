@@ -15,8 +15,8 @@ const getAllPlants = async (req, res, next) => {
       .filter()
       .sort()
       .limitFields()
-      .paginate();
-    // .search();
+      .paginate()
+      .search();
 
     const plants = await features.query;
 
@@ -106,10 +106,31 @@ const deletePlantById = async (req, res, next) => {
   }
 };
 
+const aliasTopPlant = (req, res, next) => {
+  req.query.limit = '5';
+  req.query.sort = '-ratingsAverage,-sold,-ratingsQuantity,-stock';
+  next();
+};
+
+// const searchPlant = async (req, res, next) => {
+//   try {
+//     const plant = await Plant;
+//     // console.log
+//     res.status(200).json({
+//       status: 'success',
+//       total: plant.length,
+//       result: plant,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 module.exports = {
   getAllPlants,
   createPlant,
   getPlantById,
   UpdatePlantById,
   deletePlantById,
+  aliasTopPlant,
+  // searchPlant,
 };

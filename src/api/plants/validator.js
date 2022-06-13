@@ -26,6 +26,11 @@ const plantSchema = new mongoose.Schema(
       max: [5, 'Rating must be below 5.0'],
       set: (val) => Math.round(val * 10) / 10,
     },
+    store: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Store',
+      require: [true, 'Plant must belong to an Store'],
+    },
     ratingsQuantity: {
       type: Number,
       default: 0,
@@ -55,6 +60,11 @@ const plantSchema = new mongoose.Schema(
       default: Date.now(),
     },
     updatedAt: Date,
+    searchCount: {
+      type: Number,
+      default: 0,
+    },
+    searchQuery: String,
   },
   {
     toJSON: { virtuals: true },
@@ -69,10 +79,14 @@ plantSchema.virtual('reviews', {
   localField: '_id',
 });
 
-plantSchema.virtual('search').get(function () {
-  return `${slugify(this.plantName, { lower: true })}`;
-});
+// plantSchema.virtual('searchQuery').get(function () {
+//   return `${slugify(this.plantName, { lower: true })}`;
+// });
 
+plantSchema.pre('save', function (next) {
+  this.searchQuery = slugify(this.plantName, { lower: true });
+  next();
+});
 // Query Middleware
 plantSchema.pre(/^find/, function (next) {
   this.select('-__v');

@@ -7,13 +7,14 @@ const {
   getTransactionById,
   updateTransactionById,
   deleteTransactionById,
+  setPlantAndUserId,
 } = require('./handler');
 
 const TransactionRouter = express.Router({ mergeParams: true });
 
 TransactionRouter.route('/')
   .get(protect, getAllTransactions)
-  .post(protect, createTransaction);
+  .post(protect, setPlantAndUserId, createTransaction);
 TransactionRouter.route('/:id')
   .get(protect, getTransactionById)
   .patch(protect, updateTransactionById)

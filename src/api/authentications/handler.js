@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
 /* eslint-disable no-new */
 /* eslint-disable implicit-arrow-linebreak */
@@ -112,21 +113,28 @@ const generateAccess =
 
 const forgotPassword = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
+
   if (!user) {
     return next(new AppError('There is no user with email address.', 404));
   }
 
   const resetToken = crypto.randomBytes(32).toString('hex');
-  // await user.save({ validateBeforeSave: false });
+  // console.log(resetToken);
 
   const encryptedToken = crypto
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
 
+  user.passwordResetToken = encryptedToken;
+  user.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+  console.log('mengirim email');
+  console.log(`${resetToken} dan ${user.passwordResetToken}`);
+  await user.save({ validateBeforeSave: false });
+
   const resetURL = `${req.protocol}://${req.get(
     'host',
-  )}/api/v1/users/resetPassword/${encryptedToken}`;
+  )}/api/v1/users/resetPassword/${resetToken}`;
 
   const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
   try {
@@ -141,11 +149,44 @@ const forgotPassword = async (req, res, next) => {
       message: 'Token sent to email!',
     });
   } catch (error) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
     return next(
       new AppError('There was an error sending the email. Try again later!'),
       500,
     );
   }
+};
+
+const resetPassword = async (req, res, next) => {
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex');
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+  console.log('reset password');
+  console.log(`${req.params.token} dan ${hashedToken}`);
+
+  if (!user) {
+    return next(new AppError('Token is invalid', 400));
+  }
+  user.password = await bcrypt.hash(req.body.password, 12);
+  user.passwordResetExpires = undefined;
+  user.passwordResetToken = undefined;
+
+  await user.save();
+
+  const token = createToken(user._id);
+
+  res.status(200).json({
+    status: 'success',
+    token,
+    result: user,
+  });
 };
 
 module.exports = {
@@ -154,4 +195,5 @@ module.exports = {
   protect,
   generateAccess,
   forgotPassword,
+  resetPassword,
 };

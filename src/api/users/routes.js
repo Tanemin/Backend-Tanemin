@@ -5,6 +5,7 @@ const {
   protect,
   forgotPassword,
   generateAccess,
+  resetPassword,
 } = require('../authentications/handler');
 const CartRouter = require('../carts/routes');
 const NotificationRouter = require('../notifications/routes');
@@ -29,6 +30,7 @@ userRouter.route('/signup').post(signUp);
 userRouter.route('/signin').post(signIn);
 
 userRouter.route('/forgotPassword').post(forgotPassword);
+userRouter.route('/resetPassword/:token').post(resetPassword);
 
 userRouter
   .route('/profile')

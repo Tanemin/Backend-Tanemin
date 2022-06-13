@@ -1,3 +1,5 @@
+const slugify = require('slugify');
+
 class APIFeatures {
   constructor(query, queryString) {
     this.query = query;
@@ -6,7 +8,7 @@ class APIFeatures {
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    const excludedFields = ['page', 'sort', 'limit', 'fields', 'search'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
@@ -50,8 +52,14 @@ class APIFeatures {
   }
 
   search() {
-    // const name = this.queryString.search;
-    // this.query.find({ slug: new RegExp(`^${name}$`, 'i') });
+    const slugQuery = `${slugify(this.queryString.search, { lower: true })}`;
+    if (this.queryString.search) {
+      this.query = this.query.find({
+        searchQuery: { $regex: new RegExp(`.*${slugQuery}.*`) },
+      });
+      console.log(this.queryString.search);
+    }
+
     return this;
   }
 }
