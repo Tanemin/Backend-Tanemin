@@ -43,7 +43,10 @@ const createStore = async (req, res, next) => {
 
 const getStoreById = async (req, res, next) => {
   try {
-    const store = await Store.findById(req.params.id).populate('plants');
+    const store = await Store.findById(req.params.id).populate({
+      path: 'plants',
+      select: 'plantName imageCover tags ratingsAverage sold',
+    });
 
     if (!store) {
       return next(new AppError('No Store found with that ID', 404));

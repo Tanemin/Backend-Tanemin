@@ -21,7 +21,6 @@ const storeSchema = new mongoose.Schema(
       default: 0,
       min: [0, 'Rating must be above 0'],
       max: [5, 'Rating must be below 5.0'],
-      set: (val) => Math.round(val * 10) / 10,
     },
     imageCover: {
       type: String,
@@ -42,9 +41,29 @@ const storeSchema = new mongoose.Schema(
 
 // Virtual populate
 storeSchema.virtual('plants', {
-  ref: 'Review',
-  foreignField: 'plant',
+  ref: 'Plant',
+  foreignField: 'store',
   localField: '_id',
+});
+
+storeSchema.virtual('storeRating').get(function () {
+  let ratings = 0;
+
+  for (let i = 0; i < this.plants.length; i += 1) {
+    ratings += this.plants[i].ratingsAverage;
+  }
+
+  return ratings / this.plants.length;
+});
+
+storeSchema.virtual('totalPlantSold').get(function () {
+  let totalSold = 0;
+
+  for (let i = 0; i < this.plants.length; i += 1) {
+    totalSold += this.plants[i].sold;
+  }
+
+  return totalSold;
 });
 
 storeSchema.virtual('search').get(function () {
