@@ -61,11 +61,24 @@ const updateTodoById = async (req, res, next) => {
       new: true,
       runValidators: true,
     });
+
+    const currentDay = newTodo.day;
     const checkDay = await Todo.findOne({ day: newTodo.day + 1 });
 
     if (!checkDay) {
+      console.log('no duplicate day');
       if (newTodo.status) {
-        await Todo.create({
+        console.log('status checklist for next day');
+        if (currentDay % 2 === 1) {
+          console.log('jika hari ganjil maka water false');
+          return await Todo.create({
+            day: newTodo.day + 1,
+            productivity: newTodo.productivity,
+            water: false,
+          });
+        }
+        console.log('jika hari genap maka water tidak ada');
+        return await Todo.create({
           day: newTodo.day + 1,
           productivity: newTodo.productivity,
         });
@@ -75,7 +88,7 @@ const updateTodoById = async (req, res, next) => {
       return next(new AppError('No Productivity found with that ID', 404));
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       result: newTodo,
     });

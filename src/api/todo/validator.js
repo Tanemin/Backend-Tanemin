@@ -15,34 +15,16 @@ const todoSchema = new mongoose.Schema({
     default: Date.now(),
   },
   updatedAt: Date,
-  water: {
-    type: Number,
-    default: 0,
-  },
-  organicFertilizer: {
-    type: Number,
-    default: 0,
-  },
-  chemicalFertilizer: {
-    type: Number,
-    default: 0,
-  },
-  cutting: {
-    type: Number,
-    default: 0,
-  },
-  nutrition: {
-    type: Number,
-    default: 0,
-  },
-  potReplacement: {
-    type: Number,
-    default: 0,
-  },
-  passedAllTodo: {
+  dailyCheck: {
     type: Boolean,
     default: false,
-  },
+  }, // daily
+  water: Boolean, // every 2 dayss
+  organicFertilizer: Boolean, // every 14 days
+  chemicalFertilizer: Boolean, // every 20 days
+  cutting: Boolean, // every 14 days
+  nutrition: Boolean, // every 7 days
+  potReplacement: Boolean, // every 30 day
   status: {
     type: Boolean,
     default: false,
