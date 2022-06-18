@@ -37,7 +37,9 @@ const createProductivity = async (req, res, next) => {
 
 const getProductivityById = async (req, res, next) => {
   try {
-    const productivity = await Productivity.findById(req.params.id);
+    const productivity = await Productivity.findById(req.params.id).populate(
+      'todo',
+    );
 
     if (!productivity) {
       return next(new AppError('No Productivity found with that ID', 404));

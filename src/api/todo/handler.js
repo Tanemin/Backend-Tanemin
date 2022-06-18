@@ -5,9 +5,12 @@ const Todo = require('./validator');
 const getAllTodo = async (req, res, next) => {
   try {
     let filter = {};
-    if (req.user) filter = { user: req.user.id };
+    if (req.params.productiveId) {
+      filter = { productivity: req.params.productiveId };
+    }
     const todo = await Todo.find(filter);
 
+    console.log(req.body.productivity);
     res.status(200).json({
       status: 'success',
       total: todo.length,
@@ -58,7 +61,17 @@ const updateTodoById = async (req, res, next) => {
       new: true,
       runValidators: true,
     });
-    if (newTodo) {
+    const checkDay = await Todo.findOne({ day: newTodo.day + 1 });
+
+    if (!checkDay) {
+      if (newTodo.status) {
+        await Todo.create({
+          day: newTodo.day + 1,
+          productivity: newTodo.productivity,
+        });
+      }
+    }
+    if (!newTodo) {
       return next(new AppError('No Productivity found with that ID', 404));
     }
 
@@ -95,6 +108,10 @@ const deleteTodoById = async (req, res, next) => {
     next(error);
   }
 };
+const setProductivityAndUserId = async (req, res, next) => {
+  if (!req.body.productivity) req.body.productivity = req.params.productiveId;
+  next();
+};
 
 module.exports = {
   getAllTodo,
@@ -102,4 +119,5 @@ module.exports = {
   getTodoById,
   updateTodoById,
   deleteTodoById,
+  setProductivityAndUserId,
 };

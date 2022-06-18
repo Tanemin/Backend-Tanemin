@@ -5,11 +5,14 @@ const {
   getTodoById,
   updateTodoById,
   deleteTodoById,
+  setProductivityAndUserId,
 } = require('./handler');
 
 const TodoRouter = express.Router({ mergeParams: true });
 
-TodoRouter.route('/').get(getAllTodo).post(CreateTodo);
+TodoRouter.route('/')
+  .get(setProductivityAndUserId, getAllTodo)
+  .post(CreateTodo);
 
 TodoRouter.route('/:id')
   .get(getTodoById)

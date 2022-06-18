@@ -1,5 +1,8 @@
 const express = require('express');
 const { protect } = require('../authentications/handler');
+
+const TodoRouter = require('../todo/router');
+
 const {
   getAllProductivity,
   createProductivity,
@@ -10,6 +13,8 @@ const {
 } = require('./handler');
 
 const ProductivityRouter = express.Router({ mergeParams: true });
+
+ProductivityRouter.use('/:productiveId/todos/', TodoRouter);
 
 ProductivityRouter.route('/')
   .get(protect, getAllProductivity)
