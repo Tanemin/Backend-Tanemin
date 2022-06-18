@@ -27,7 +27,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullname\": \"anwar\",\r\n    \"email\": \"anwar@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n    \"fullname\": \"anwar111\",\r\n    \"email\": \"2345@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -35,14 +35,13 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:3000/api/v1/users/signup",
+							"raw": "https://calm-dusk-18735.herokuapp.com/api/v1/users/signup",
+							"protocol": "https",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"calm-dusk-18735",
+								"herokuapp",
+								"com"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"v1",
@@ -71,7 +70,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"irwan@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n    \"email\": \"anwar@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -590,7 +589,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Triansactions on Current Logged User",
+					"name": "Get Transactions on Current Logged User",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -631,6 +630,97 @@
 								"users",
 								"profile",
 								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Productivity on Current User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/api/v1/users/profile/productivities",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile",
+								"productivities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Productivity on Current User Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plantGroup\": \"Tanaman 1\",\r\n    \"totalPlant\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/api/v1/users/profile/productivities",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile",
+								"productivities"
 							]
 						}
 					},
@@ -1851,6 +1941,384 @@
 										"api",
 										"v1",
 										"notifications",
+										"62a19b46ae00d2baa7135ae9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Productivity",
+			"item": [
+				{
+					"name": "Simple CRUD",
+					"item": [
+						{
+							"name": "Get All Productivities",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/productivities/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"productivities",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Productivities",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user\": \"62a72adca13c90fca69f29ea\",\r\n    \"plantGroup\": \"Tanaman 1\",\r\n    \"totalPlant\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/productivities/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"productivities",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get ProductivitiesBy Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/productivities/62a19b46ae00d2baa7135ae9",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"productivities",
+										"62a19b46ae00d2baa7135ae9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Productivitiesby Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/productivities/123",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"productivities",
+										"123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Productivities by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/productivities/62a19b46ae00d2baa7135ae9",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"productivities",
+										"62a19b46ae00d2baa7135ae9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Todo",
+			"item": [
+				{
+					"name": "Simple CRUD",
+					"item": [
+						{
+							"name": "Get All Todo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/todos/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"todos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Todo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"notificationTitle\": \"Allert Notification\",\r\n    \"notificationDescription\": \"lorem ipsum dolor sit amer predo despacito\",\r\n    \"user\": \"629af420dbde6fd6e3306956\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/todos/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"todos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Todo By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/todos/62a19b46ae00d2baa7135ae9",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"todos",
+										"62a19b46ae00d2baa7135ae9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Todo by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/todos/123",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"todos",
+										"123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Todo by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3000/api/v1/todos/62a19b46ae00d2baa7135ae9",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"todos",
 										"62a19b46ae00d2baa7135ae9"
 									]
 								}

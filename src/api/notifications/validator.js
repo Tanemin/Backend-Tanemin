@@ -7,17 +7,12 @@ const notificationSchema = new mongoose.Schema({
   },
   notificationDescription: {
     type: String,
-    required: [true, 'title is required'],
+    required: [true, 'Description is required'],
   },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    require: [true, 'Review must belong to an User'],
-  },
-  notificationType: {
-    type: String,
-    enum: ['Alert', 'Transaction', 'Account'],
-    default: 'Alert',
+    require: [true, 'Notification must belong to an User'],
   },
   createdAt: {
     type: Date,

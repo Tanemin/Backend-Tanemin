@@ -12,6 +12,8 @@ const CartRouter = require('./api/carts/routes');
 const TransactionRouter = require('./api/transactions/routes');
 const NotificationRouter = require('./api/notifications/routes');
 const storeRouter = require('./api/store/routes');
+const ProductivityRouter = require('./api/productivities/routes');
+const TodoRouter = require('./api/todo/router');
 
 const app = express();
 
@@ -38,6 +40,8 @@ app.use('/api/v1/store', storeRouter);
 app.use('/api/v1/carts', CartRouter);
 app.use('/api/v1/transactions', TransactionRouter);
 app.use('/api/v1/notifications', NotificationRouter);
+app.use('/api/v1/productivities', ProductivityRouter);
+app.use('/api/v1/todos', TodoRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

@@ -9,6 +9,7 @@ const {
 } = require('../authentications/handler');
 const CartRouter = require('../carts/routes');
 const NotificationRouter = require('../notifications/routes');
+const ProductivityRouter = require('../productivities/routes');
 const TransactionRouter = require('../transactions/routes');
 const {
   getAllUsers,
@@ -25,6 +26,7 @@ const userRouter = express.Router();
 userRouter.use('/profile/carts/', CartRouter);
 userRouter.use('/profile/notifications/', NotificationRouter);
 userRouter.use('/profile/transactions/', TransactionRouter);
+userRouter.use('/profile/productivities/', ProductivityRouter);
 
 userRouter.route('/signup').post(signUp);
 userRouter.route('/signin').post(signIn);
