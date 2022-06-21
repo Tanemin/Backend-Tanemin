@@ -38,7 +38,7 @@ const createTransaction = async (req, res, next) => {
         {
           name: `${plant.plantName}`,
           description: plant.description,
-          images: [`http://localhost:3000/img/tours/${plant.imageCover}`],
+          images: [`${plant.imageCover}`],
           amount: plant.price * 100,
           currency: 'idr',
           quantity: req.body.ammount,

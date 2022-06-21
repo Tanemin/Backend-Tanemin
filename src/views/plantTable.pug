@@ -1,0 +1,29 @@
+extends base
+
+block content 
+  .col.bg-light.p-4
+    .row.mb-5
+      .col 
+        h1= `${title}`
+      .col-2
+        a.btn.btn-primary.w-100(href='plants/add-plant') Add
+    .row
+      table.table
+        thead
+          tr
+            th(scope='col') #
+            th(scope='col') Plant Name
+            th(scope='col') Price
+            th(scope='col') Stock
+            th(scope='col') Actions
+        tbody
+          each plant, i in plants
+            tr
+              th(scope='row')= `${i + 1}`
+              td=`${plant.plantName}`
+              td=`${plant.price}`
+              td=`${plant.stock}`
+              td
+                button.btn.btn-warning.me-1(type='button') Update
+
+                button.btn.btn-danger.ms-1(type='button') Delete

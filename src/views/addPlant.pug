@@ -1,0 +1,53 @@
+extends base
+
+block content 
+    .col.bg-light.p-4
+        .row.mb-5
+            .col 
+                h1= `${title}`
+        .row
+            .col-5.m-2
+                .row.mb-3
+                    label.form-label(for='formFile') Image Cover
+                    input#formFile.form-control(type='file')
+                .row.mb-3
+                    label.form-label(for='formFile') Image 1
+                    input#formFile.form-control(type='file')
+                .row.mb-3
+                    label.form-label(for='formFile') Image 2
+                    input#formFile.form-control(type='file')
+                .row.mb-3
+                    label.form-label(for='formFile') Image 3
+                    input#formFile.form-control(type='file')
+                .row.mb-3
+                    label.form-label(for='formFile') Image 4
+                    input#formFile.form-control(type='file')
+                .row.mb-3
+                    label.form-label(for='formFile') Image 5
+                    input#formFile.form-control(type='file')
+                .row.mb-3
+                    label.form-label(for='formFile') Image 6
+                    input#formFile.form-control(type='file')
+            .col-5.m-2
+                .row.mb-3
+                    label.form-label.mb-2(for='storeName') Name
+                    input#storeName.form-control(type='text')
+
+                .row.mb-3
+                    label.form-label.mb-2(for='description') Description
+                    textarea#description.form-control(placeholder='Leave a comment here' style='height: 200px')
+
+                .row.mb-3
+                    label.form-label.mb-2(for='storeName') Owner
+                    input#storeName.form-control(type='text')
+
+                .row.mb-3
+                    label.form-label.mb-2(for='storeName') Contact
+                    input#storeName.form-control(type='text')
+
+
+            .row.my-5
+                button.btn.btn-primary.w-100(type='button') Submit
+
+
+

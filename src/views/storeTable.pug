@@ -1,0 +1,27 @@
+extends base
+
+block content 
+  .col.bg-light.p-4
+    .row.mb-5
+      .col 
+        h1= `${title}`
+      .col-2
+        a.btn.btn-primary.w-100(href='/stores/add-store') Add
+    .row
+      table.table
+        thead
+          tr
+            th(scope='col') #
+            th(scope='col') Store Name
+            th(scope='col') Owner
+            th(scope='col') Actions
+        tbody
+          each store, i in stores
+            tr
+              th(scope='row')= `${i + 1}`
+              td=`${store.storeName}`
+              td=`${store.owner}`
+              td
+                button.btn.btn-warning.me-1(type='button') Update
+
+                button.btn.btn-danger.ms-1(type='button') Delete

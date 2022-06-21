@@ -13,6 +13,11 @@ const plantSchema = new mongoose.Schema(
       type: String,
       required: [true, 'description is required'],
     },
+    duration: {
+      type: Number,
+      default: 0,
+      required: [true, 'description is required'],
+    },
     price: {
       type: Number,
       required: [true, 'price is required'],
