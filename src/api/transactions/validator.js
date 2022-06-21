@@ -19,23 +19,12 @@ const transactionSchema = new mongoose.Schema({
   },
   status: {
     type: Boolean,
-    default: false,
-  },
-  detailStatus: {
-    type: String,
-    enum: [
-      'Waiting Payment',
-      'Packaging',
-      'Delivery Progress',
-      'Transaction Success',
-    ],
-    default: 'Waiting Payment',
+    default: true,
   },
   CreatedAt: {
     type: Date,
     default: Date.now(),
   },
-  updatedAt: Date,
 });
 
 transactionSchema.pre(/^find/, function (next) {

@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable no-undef */
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 

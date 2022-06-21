@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
+// const slugify = require('slugify');
 
 const storeSchema = new mongoose.Schema(
   {
@@ -26,7 +26,6 @@ const storeSchema = new mongoose.Schema(
       type: String,
       required: [true, 'image cover is required'],
     },
-    imageGalery: [String],
     createdAt: {
       type: Date,
       default: Date.now(),
@@ -46,29 +45,29 @@ storeSchema.virtual('plants', {
   localField: '_id',
 });
 
-storeSchema.virtual('storeRating').get(function () {
-  let ratings = 0;
+// storeSchema.virtual('storeRating').get(function () {
+//   let ratings = 0;
 
-  for (let i = 0; i < this.plants.length; i += 1) {
-    ratings += this.plants[i].ratingsAverage;
-  }
+//   for (let i = 0; i < this.plants.length; i += 1) {
+//     ratings += this.plants[i].ratingsAverage;
+//   }
 
-  return ratings / this.plants.length;
-});
+//   return ratings / this.plants.length;
+// });
 
-storeSchema.virtual('totalPlantSold').get(function () {
-  let totalSold = 0;
+// storeSchema.virtual('totalPlantSold').get(function () {
+//   let totalSold = 0;
 
-  for (let i = 0; i < this.plants.length; i += 1) {
-    totalSold += this.plants[i].sold;
-  }
+//   for (let i = 0; i < this.plants.length; i += 1) {
+//     totalSold += this.plants[i].sold;
+//   }
 
-  return totalSold;
-});
+//   return totalSold;
+// });
 
-storeSchema.virtual('search').get(function () {
-  return `${slugify(this.storeName, { lower: true })}`;
-});
+// storeSchema.virtual('search').get(function () {
+//   return `${slugify(this.storeName, { lower: true })}`;
+// });
 
 // Query Middleware
 storeSchema.pre(/^find/, function (next) {

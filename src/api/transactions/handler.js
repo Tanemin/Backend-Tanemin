@@ -1,5 +1,8 @@
 /* eslint-disable consistent-return */
+const Stripe = require('stripe');
+
 const AppError = require('../../exceptions/app-error');
+const Plant = require('../plants/validator');
 const Transaction = require('./validator');
 
 const getAllTransactions = async (req, res, next) => {
@@ -18,12 +21,36 @@ const getAllTransactions = async (req, res, next) => {
 
 const createTransaction = async (req, res, next) => {
   try {
-    const newTransaction = await Transaction.create(req.body);
+    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+    const plant = await Plant.findById(req.body.plant);
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      success_url: `${req.protocol}://${req.get('host')}/detail/${
+        req.body.plant
+      }`,
+      cancel_url: `${req.protocol}://${req.get('host')}/detail/${
+        req.body.plant
+      }`,
+      customer_email: req.user.email,
+      client_reference_id: req.body.plant,
+      line_items: [
+        {
+          name: `${plant.plantName}`,
+          description: plant.description,
+          images: [`http://localhost:3000/img/tours/${plant.imageCover}`],
+          amount: plant.price * 100,
+          currency: 'idr',
+          quantity: req.body.ammount,
+        },
+      ],
+    });
+
+    await Transaction.create(req.body);
 
     res.status(200).json({
       status: 'success',
-      total: newTransaction.length,
-      result: newTransaction,
+      session,
     });
   } catch (error) {
     next(error);

@@ -7,9 +7,14 @@ const getAllPlants = async (req, res, next) => {
   try {
     const plant = Plant.find();
     if (!req.query.fields) {
-      plant.select(
-        'plantName price store imageCover stock ratingsAverage ratingsQuantity sold searchCount viewCount',
-      );
+      plant
+        .select(
+          'plantName price store imageCover stock ratingsAverage ratingsQuantity sold searchCount viewCount',
+        )
+        .populate({
+          path: 'store',
+          select: 'storeName owner ratingStore imageCover',
+        });
     }
     const features = new APIFeatures(plant, req.query)
       .filter()
@@ -60,7 +65,12 @@ const createPlant = async (req, res, next) => {
 
 const getPlantById = async (req, res, next) => {
   try {
-    const plant = await Plant.findById(req.params.id).populate('reviews');
+    const plant = await Plant.findById(req.params.id)
+      .populate('reviews')
+      .populate({
+        path: 'store',
+        select: 'storeName owner ratingStore imageCover',
+      });
 
     if (!plant) {
       return next(new AppError('No Plant found with that ID', 404));
