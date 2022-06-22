@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 const globalErrorHandler = require('./utils/global-error-handler');
 const AppError = require('./exceptions/app-error');
@@ -30,6 +31,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();

@@ -1,29 +1,29 @@
 extends base
 
 block content 
-  .col.bg-light.p-4
-    .row.mb-5
-      .col 
-        h1= `${title}`
-      .col-2
-        button.btn.btn-primary.w-100(type='button') Add
-    .row
-      table.table
-        thead
-          tr
-            th(scope='col') #
-            th(scope='col') Fullname
-            th(scope='col') Email
-            th(scope='col') Role
-            th(scope='col') Actions
-        tbody
-          each user, i in users
-            tr
-              th(scope='row')= `${i + 1}`
-              td=`${user.fullname}`
-              td=`${user.email}`
-              td=`${user.role}`
-              td
-                button.btn.btn-warning.me-1(type='button') Update
-
-                button.btn.btn-danger.ms-1(type='button') Delete
+  .col.bg-light
+      .card.p-5.shadow.mt-5.me-5
+         .row.mb-5
+           .col 
+             h1= `${title}`
+         .row
+           table.table
+             thead
+               tr
+                 th(scope='col') #
+                 th(scope='col') Fullname
+                 th(scope='col') Email
+                 th(scope='col') Role
+                 th(scope='col') Actions
+             tbody
+               each user, i in users
+                 tr
+                   th(scope='row')= `${i + 1}`
+                   td=`${user.fullname}`
+                   td=`${user.email}`
+                   td=`${user.role}`
+                   td
+                     button.btn.btn-warning.me-1(type='button') Update
+      
+                     button.btn.btn-danger.ms-1(type='button') Delete
+      

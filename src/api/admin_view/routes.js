@@ -1,4 +1,5 @@
 const express = require('express');
+const { protect, isLoggedIn } = require('../authentications/handler');
 const {
   getUsersView,
   getPlantsView,
@@ -10,7 +11,7 @@ const {
 
 const ViewRouter = express.Router();
 
-ViewRouter.get('/', getUsersView);
+ViewRouter.get('/', isLoggedIn, getUsersView);
 ViewRouter.get('/plants', getPlantsView);
 ViewRouter.get('/plants/add-plant', getAddPlantView);
 ViewRouter.get('/stores', getStoresView);

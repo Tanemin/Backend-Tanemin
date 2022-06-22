@@ -7,6 +7,7 @@ const getUsersView = async (req, res, next) => {
   try {
     const users = await User.find();
 
+    console.log(res.user);
     res.status(200).render('userTable', {
       title: 'User',
       users,
@@ -49,8 +50,11 @@ const getPlantsView = async (req, res, next) => {
 };
 const getAddPlantView = async (req, res, next) => {
   try {
+    const stores = await Store.find();
+
     res.status(200).render('addPlant', {
       title: 'Add Plant',
+      stores,
     });
   } catch (err) {
     next(err);
