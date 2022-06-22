@@ -29,8 +29,20 @@ const getStoresView = async (req, res, next) => {
 };
 const getAddStoreView = async (req, res, next) => {
   try {
-    res.status(200).render('addStore', {
+    res.status(200).render('store-add', {
       title: 'Add Store',
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+const updateAddStoreView = async (req, res, next) => {
+  try {
+    const store = await Store.findById(req.params.id);
+
+    res.status(200).render('store-update', {
+      title: 'Update Store',
+      store,
     });
   } catch (err) {
     next(err);
@@ -52,8 +64,23 @@ const getAddPlantView = async (req, res, next) => {
   try {
     const stores = await Store.find();
 
-    res.status(200).render('addPlant', {
+    res.status(200).render('plant-add', {
       title: 'Add Plant',
+      stores,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+const getUpdatePlantView = async (req, res, next) => {
+  try {
+    const plant = await Plant.findById(req.params.id);
+
+    const stores = await Store.find();
+
+    res.status(200).render('plant-update', {
+      title: 'Update Plant',
+      plant,
       stores,
     });
   } catch (err) {
@@ -76,7 +103,9 @@ module.exports = {
   getUsersView,
   getStoresView,
   getPlantsView,
+  getAddPlantView,
+  getUpdatePlantView,
   getTransactionsView,
   getAddStoreView,
-  getAddPlantView,
+  updateAddStoreView,
 };

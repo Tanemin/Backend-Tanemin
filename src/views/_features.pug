@@ -1,0 +1,20 @@
+mixin imageUpload(id, title)
+  .row.mb-4
+    label.form-label(for=`${id}`) #{title}
+    input.form-control(id=`${id}` type='file')
+
+mixin checkBox(id , title, plantField = [])
+  .col
+    .form-check
+        - if (plantField.length !== 0)
+          -if ((plantField.filter((el) => el === title)).length !== 0)
+            input.form-check-input(id=`${id}` type='checkbox' value=`${title}` checked)
+          -else
+            input.form-check-input(id=`${id}` type='checkbox' value=`${title}`)
+        - else
+          input.form-check-input(id=`${id}` type='checkbox' value=`${title}`)
+        label.form-check-label(for=`${id}`) #{title}
+
+mixin inputField(id, title, value='', type='text')
+  label.form-label.mb-2(for=`${id}`) #{title}
+  input.form-control(id=`${id}` type=`${type}` value=`${value}`)

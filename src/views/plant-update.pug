@@ -1,0 +1,102 @@
+extends base
+
+block content 
+  include _features
+  .col.bg-light
+    .card.p-5.shadow.mt-5.me-5
+      .row.mb-5
+        .col 
+          h1 #{title}
+      .row
+        .col.m-2
+          +imageUpload('imageCover', 'Image Cover')
+          +imageUpload('image1', 'Image 1')
+          +imageUpload('image2', 'Image 2')
+          +imageUpload('image3', 'Image 3')
+          +imageUpload('image4', 'Image 4')
+          +imageUpload('image5', 'Image 5')
+          +imageUpload('image6', 'Image 6')
+        .col.m-2
+          .row.mb-4
+            +inputField('plantName', 'Plant Name', plant.plantName)
+
+          .row.mb-4
+            label.form-label.mb-2(for='description') Description
+            textarea#description.form-control(placeholder='Leave a comment here' style='height: 500px')=`${plant ? plant.description : ''}`
+        .row.mb-4
+          .card.p-3
+            .row
+              .col
+                .input-group.mb-3
+                  span#inputGroup-sizing-default.input-group-text Price
+                  input.form-control(type='text' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-default' value=`${plant ? plant.price : ''}`)
+              .col
+                .row.mb-4
+                  .btn-group
+                    button.btn.btn-secondary.dropdown-toggle.text-start(type='button' data-bs-toggle='dropdown' aria-expanded='false') Store`
+                    ul.dropdown-menu
+                      each store in stores
+                        li
+                          button.dropdown-item=`${store.storeName}`
+              .col
+                .row.mb-4
+                  .btn-group
+                    button.btn.btn-secondary.dropdown-toggle.text-start(type='button' data-bs-toggle='dropdown' aria-expanded='false') Difficulty
+                    ul.dropdown-menu
+                      li
+                        button.dropdown-item Easy
+                      li
+                        button.dropdown-item Medium
+                      li
+                        button.dropdown-item Hard
+        .row.mb-4
+          .card.p-3
+            .row
+              .col
+                +inputField('stock', 'stock', plant.stock, 'number')
+              .col
+                +inputField('height', 'height', plant.height, 'number')
+              .col
+                +inputField('diameter', 'diameter', plant.diameter, 'number')
+              .col
+                +inputField('duration', 'duration', plant.duration, 'number')
+        .row.mb-4
+          .card.p-3
+            .row
+              label.form-label.mb-2 Type
+              +checkBox('cbIndoor','Indoor', plant.type)
+              +checkBox('cbOutdoor','Outdoor', plant.type)
+        .row.mb-4
+          .card.p-3
+            .row
+              label.form-label.mb-2 Season
+              +checkBox('cbMusimHujan','Musim Hujan', plant.season)
+              +checkBox('cbMusimPanas','Musim Panas', plant.season)
+        .row.mb-4
+          .card.p-3
+            .row
+              label.form-label.mb-2(for='') Habitat
+              +checkBox('cbHutan','Hutan', plant.habitat)
+              +checkBox('cbPenghujungSungai','Penghujung sungai', plant.habitat)
+        .row.mb-4
+          .card.p-3
+            .row.mb-4
+              label.form-label.mb-2(for='') Tags
+              +checkBox('cbMusiman','Musiman', plant.tags)
+              +checkBox('cbHiasanRuangan','Hiasan Ruangan', plant.tags)
+              +checkBox('cbHiasanLuarRuangan','Hiasan Luar Ruangan', plant.tags)
+              +checkBox('cbHobby','Hobby', plant.tags)
+              +checkBox('cbKoleksi','Koleksi', plant.tags)
+              +checkBox('cbPameran','Pameran', plant.tags)
+              +checkBox('cbLangka','Langka', plant.tags)
+              +checkBox('cbTanamanGantung','Tanaman Gantung', plant.tags)
+              +checkBox('cbTanamanHiasPohon','Tanaman Hias (Pohon)', plant.tags)
+              +checkBox('cbTanamanHiasBunga','Tanaman Hias (Bunga)', plant.tags)
+              +checkBox('cbTanamanHiasDaun','Tanaman Hias (Daun)', plant.tags)
+              +checkBox('cbTanamanHiasBuah','Tanaman Hias (Buah)', plant.tags)
+              +checkBox('cbTanamanHiasAkar','Tanaman Hias (Akar)', plant.tags)
+        .row.my-5
+          button.btn.btn-primary.w-100(type='button') Submit
+
+
+

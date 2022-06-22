@@ -1,0 +1,102 @@
+extends base
+
+block content 
+  include _features
+  .col.bg-light
+    .card.p-5.shadow.mt-5.me-5
+      .row.mb-5
+        .col 
+          h1 #{title}
+      .row
+        .col.m-2
+          +imageUpload('imageCover', 'Image Cover')
+          +imageUpload('image1', 'Image 1')
+          +imageUpload('image2', 'Image 2')
+          +imageUpload('image3', 'Image 3')
+          +imageUpload('image4', 'Image 4')
+          +imageUpload('image5', 'Image 5')
+          +imageUpload('image6', 'Image 6')
+        .col.m-2
+          .row.mb-4
+            +inputField('storeName', 'Store Name')
+
+          .row.mb-4
+            label.form-label.mb-2(for='description') Description
+            textarea#description.form-control(placeholder='Leave a comment here' style='height: 500px')
+        .row.mb-4
+          .card.p-3
+            .row
+              .col
+                .input-group.mb-3
+                  span#inputGroup-sizing-default.input-group-text Price
+                  input.form-control(type='text' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-default' value=`${plant ? plant.price : ''}`)
+              .col
+                .row.mb-4
+                  .btn-group
+                    button.btn.btn-secondary.dropdown-toggle.text-start(type='button' data-bs-toggle='dropdown' aria-expanded='false')=`${plant ? plant.store : 'Store'}`
+                    ul.dropdown-menu
+                      each store in stores
+                        li
+                          button.dropdown-item=`${store.storeName}`
+              .col
+                .row.mb-4
+                  .btn-group
+                    button.btn.btn-secondary.dropdown-toggle.text-start(type='button' data-bs-toggle='dropdown' aria-expanded='false') Difficulty
+                    ul.dropdown-menu
+                      li
+                        button.dropdown-item Easy
+                      li
+                        button.dropdown-item Medium
+                      li
+                        button.dropdown-item Hard
+        .row.mb-4
+          .card.p-3
+            .row
+              .col
+                +inputField('stock', 'stock', '', 'number')
+              .col
+                +inputField('height', 'height', '', 'number')
+              .col
+                +inputField('diameter', 'diameter', '', 'number')
+              .col
+                +inputField('duration', 'duration', '', 'number')
+        .row.mb-4
+          .card.p-3
+            .row
+              label.form-label.mb-2 Type
+              +checkBox('cbIndoor','Indoor')
+              +checkBox('cbOutdoor','Outdoor')
+        .row.mb-4
+          .card.p-3
+            .row
+              label.form-label.mb-2 Season
+              +checkBox('cbMusimHujan','Musim Hujan')
+              +checkBox('cbMusimPanas','Musim Panas')
+        .row.mb-4
+          .card.p-3
+            .row
+              label.form-label.mb-2(for='') Habitat
+              +checkBox('cbHutan','Hutan')
+              +checkBox('cbPenghujungSungai','Penghujung sungai')
+        .row.mb-4
+          .card.p-3
+            .row.mb-4
+              label.form-label.mb-2(for='') Tags
+              +checkBox('cbMusiman','Musiman')
+              +checkBox('cbHiasanRuangan','Hiasan Ruangan')
+              +checkBox('cbHiasanLuarRuangan','Hiasan Luar Ruangan')
+              +checkBox('cbHobby','Hobby')
+              +checkBox('cbKoleksi','Koleksi')
+              +checkBox('cbPameran','Pameran')
+              +checkBox('cbLangka','Langka')
+              +checkBox('cbTanamanGantung','Tanaman Gantung')
+              +checkBox('cbTanamanHiasPohon','Tanaman Hias (Pohon)')
+              +checkBox('cbTanamanHiasBunga','Tanaman Hias (Bunga)')
+              +checkBox('cbTanamanHiasDaun','Tanaman Hias (Daun)')
+              +checkBox('cbTanamanHiasBuah','Tanaman Hias (Buah)')
+              +checkBox('cbTanamanHiasAkar','Tanaman Hias (Akar)')
+        .row.my-5
+          button.btn.btn-primary.w-100(type='button') Submit
+
+
+

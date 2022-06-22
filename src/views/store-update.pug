@@ -1,0 +1,32 @@
+extends base
+
+block content 
+    include _features
+    .col.bg-light
+      .card.p-5.shadow.mt-5.me-5
+            .row.mb-5
+                .col 
+                    h1= `${title}`
+            .row
+                .row.mb-3
+                    +inputField('storeName', 'Store Name', store.storeName)
+
+                .row.mb-3
+                    label.form-label.mb-2(for='description') Description
+                    textarea#description.form-control(placeholder='Leave a comment here' style='height: 200px')= `${store.description}`
+
+                .row.mb-3
+                    +inputField('owner', 'Owner', store.owner)
+
+                .row.mb-3
+                    +inputField('contact', 'Contact', store.contact)
+                    
+
+                .row.mb-3
+                    +imageUpload('imageCover', 'Image Cover')
+
+                .row.my-5
+                    button.btn.btn-primary.w-100(type='button') Submit  
+
+
+
