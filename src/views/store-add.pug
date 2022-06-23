@@ -7,7 +7,7 @@ block content
             .row.mb-5
                 .col 
                     h1= `${title}`
-            .row
+            form.row#addStoreForm
                 //- .col-5
                 .row.mb-3
                     +inputField('storeName', 'Store Name')
@@ -27,7 +27,7 @@ block content
                     +imageUpload('imageCover', 'Image Cover')
 
                 .row.my-5
-                    button.btn.btn-primary.w-100(type='button') Submit  
+                    button.btn.btn-primary.w-100 Submit  
 
 
 

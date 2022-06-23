@@ -3,12 +3,14 @@ extends base
 block content 
     include _features
     .col.bg-light
-      .card.p-5.shadow.mt-5.me-5
+       form.row#updateStoreForm
+        .card.p-5.shadow.mt-5.me-5
             .row.mb-5
                 .col 
                     h1= `${title}`
             .row
                 .row.mb-3
+                    +inputField('id', 'id', store._id, 'hidden')
                     +inputField('storeName', 'Store Name', store.storeName)
 
                 .row.mb-3
@@ -26,7 +28,7 @@ block content
                     +imageUpload('imageCover', 'Image Cover')
 
                 .row.my-5
-                    button.btn.btn-primary.w-100(type='button') Submit  
+                    button.btn.btn-primary.w-100 Submit  
 
 
 
