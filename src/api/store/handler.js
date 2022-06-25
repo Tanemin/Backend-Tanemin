@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 const multer = require('multer');
+const fs = require('fs');
 const AppError = require('../../exceptions/app-error');
 const APIFeatures = require('../../utils/api-features');
 const Store = require('./validator');
@@ -10,7 +11,9 @@ const multerStorage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const ext = file.mimetype.split('/')[1];
-    cb(null, `store-${req.params.id}-cover.${ext}`);
+    // if (req.params.id) {
+    cb(null, `store-${Date.now()}-cover.${ext}`);
+    // }
   },
 });
 
@@ -91,7 +94,15 @@ const getStoreById = async (req, res, next) => {
 const updateStoreById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    if (req.file) req.body.imageCover = req.file.filename;
+    const oldStore = await Store.findById(id);
+    if (req.file) {
+      if (oldStore.imageCover !== 'default.jpg') {
+        fs.unlinkSync(`public/img/stores/${oldStore.imageCover}`);
+      }
+      req.body.imageCover = req.file.filename;
+    } else {
+      req.body.imageCover = oldStore.imageCover;
+    }
 
     req.body.updatedAt = Date.now();
     const newStore = await Store.findByIdAndUpdate(id, req.body, {
@@ -114,7 +125,10 @@ const updateStoreById = async (req, res, next) => {
 const deleteStoreById = async (req, res, next) => {
   try {
     const { id } = req.params;
-
+    const oldStore = await Store.findById(id);
+    if (oldStore.imageCover !== 'default.jpg') {
+      fs.unlinkSync(`public/img/stores/${oldStore.imageCover}`);
+    }
     const store = await Store.findByIdAndDelete(id);
 
     if (!store) {
