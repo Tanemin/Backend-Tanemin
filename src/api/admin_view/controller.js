@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 const Plant = require('../plants/validator');
 const Store = require('../store/validator');
 const Transaction = require('../transactions/validator');
@@ -43,6 +44,18 @@ const updateAddStoreView = async (req, res, next) => {
     res.status(200).render('store-update', {
       title: 'Update Store',
       store,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+const deleteStoreView = async (req, res, next) => {
+  try {
+    await Store.findByIdAndDelete(req.params.id);
+    const stores = await Store.find();
+    res.status(200).render('storeTable', {
+      title: 'Store',
+      stores,
     });
   } catch (err) {
     next(err);
@@ -108,4 +121,5 @@ module.exports = {
   getTransactionsView,
   getAddStoreView,
   updateAddStoreView,
+  deleteStoreView,
 };

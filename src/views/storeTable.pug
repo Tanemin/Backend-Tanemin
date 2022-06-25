@@ -13,6 +13,7 @@ block content
           thead
             tr
               th(scope='col') #
+              th(scope='col') Image
               th(scope='col') Store Name
               th(scope='col') Owner
               th(scope='col') Actions
@@ -20,9 +21,12 @@ block content
             each store, i in stores
               tr
                 th(scope='row')= `${i + 1}`
+                td
+                  img.img-thumbnail(src=`/img/stores/${store.imageCover}` alt=`${store.storeName}` style='width: 100px; height: 100px ; object-fit: cover;' )
                 td=`${store.storeName}`
                 td=`${store.owner}`
                 td
                   a.btn.btn-warning.me-1(href=`/stores/update/${store._id}`) Update
-                  button#btnDeleteStore.btn.btn-danger.ms-1 Delete
+                  form#formDeleteStore(action=`/stores/delete/${store._id}`)
+                    button#btnDeleteStore.btn.btn-danger.ms-1 Delete
   

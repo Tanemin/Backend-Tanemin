@@ -1,7 +1,10 @@
 /* eslint-disable consistent-return */
+const multer = require('multer');
 const AppError = require('../../exceptions/app-error');
 const APIFeatures = require('../../utils/api-features');
 const Plant = require('./validator');
+
+const upload = multer({ dest: 'public/img/plants' });
 
 const getAllPlants = async (req, res, next) => {
   try {

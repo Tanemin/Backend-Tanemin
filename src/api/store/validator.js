@@ -9,11 +9,11 @@ const storeSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, 'description is required'],
+      // required: [true, 'description is required'],
     },
     owner: {
       type: String,
-      required: [true, 'owner is required'],
+      // required: [true, 'owner is required'],
     },
     contact: String,
     ratingStore: {

@@ -1,7 +1,33 @@
 /* eslint-disable consistent-return */
+const multer = require('multer');
 const AppError = require('../../exceptions/app-error');
 const APIFeatures = require('../../utils/api-features');
 const Store = require('./validator');
+
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/img/stores');
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split('/')[1];
+    cb(null, `store-${req.params.id}-cover.${ext}`);
+  },
+});
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new AppError('No Images', 400), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+const uploadStorePhoto = upload.single('imageCover');
 
 const getAllStore = async (req, res, next) => {
   try {
@@ -30,6 +56,7 @@ const getAllStore = async (req, res, next) => {
 
 const createStore = async (req, res, next) => {
   try {
+    if (req.file) req.body.imageCover = req.file.filename;
     const newStore = await Store.create(req.body);
 
     res.status(200).json({
@@ -64,6 +91,7 @@ const getStoreById = async (req, res, next) => {
 const updateStoreById = async (req, res, next) => {
   try {
     const { id } = req.params;
+    if (req.file) req.body.imageCover = req.file.filename;
 
     req.body.updatedAt = Date.now();
     const newStore = await Store.findByIdAndUpdate(id, req.body, {
@@ -111,6 +139,7 @@ const deleteStoreById = async (req, res, next) => {
 module.exports = {
   getAllStore,
   createStore,
+  uploadStorePhoto,
   getStoreById,
   updateStoreById,
   deleteStoreById,

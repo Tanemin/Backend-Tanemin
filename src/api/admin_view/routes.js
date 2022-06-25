@@ -8,6 +8,7 @@ const {
   getAddStoreView,
   getAddPlantView,
   updateAddStoreView,
+  deleteStoreView,
   getUpdatePlantView,
 } = require('./controller');
 
@@ -20,6 +21,7 @@ ViewRouter.get('/plants/update/:id', getUpdatePlantView);
 ViewRouter.get('/stores', getStoresView);
 ViewRouter.get('/stores/add-store', getAddStoreView);
 ViewRouter.get('/stores/update/:id', updateAddStoreView);
+ViewRouter.get('/stores/delete/:id', deleteStoreView);
 ViewRouter.get('/transactions', getTransactionsView);
 
 module.exports = ViewRouter;
