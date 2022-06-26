@@ -1,4 +1,14 @@
 extends base
 
 block content 
-    h1 login
+    h1.text-center.mt-5 Login
+    .card.w-50.m-auto.mt-5.p-5
+        form#loginForm
+            .mb-3
+                label.form-label(for='email') Email address
+                input#email.form-control(type='email' aria-describedby='emailHelp')
+            .mb-5
+                label.form-label(for='password') Password
+                input#password.form-control(type='password')
+            
+            button.btn.btn-primary.w-100.mt-5(type='submit') Submit

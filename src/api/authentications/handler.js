@@ -66,8 +66,9 @@ const signIn = async (req, res, next) => {
       ),
       httpOnly: true,
     };
-    if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+    // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
+    console.log('login');
     res.cookie('jwt', token, cookieOptions);
     res.status(201).json({
       status: 'success',
@@ -93,7 +94,7 @@ const protect = async (req, res, next) => {
     } else if (req.cookies.jwt) {
       token = req.cookies.jwt;
     }
-    console.log(token);
+    // console.log(token);
 
     if (!token) {
       // return res.status(200).render('login', {
@@ -140,17 +141,14 @@ const isLoggedIn = async (req, res, next) => {
         return next();
       }
 
-      // 3) Check if user changed password after the token was issued
-      if (currentUser.changedPasswordAfter(decoded.iat)) {
-        return next();
-      }
-
       // THERE IS A LOGGED IN USER
       res.locals.user = currentUser;
       return next();
     } catch (err) {
       return next(err);
     }
+  } else if (!req.cookies.jwt) {
+    return res.redirect('http://localhost:3000/');
   }
   next();
 };

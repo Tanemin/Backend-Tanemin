@@ -24,7 +24,7 @@ const storeSchema = new mongoose.Schema(
     },
     imageCover: {
       type: String,
-      // required: [true, 'image cover is required'],
+      required: [true, 'image cover is required'],
     },
     createdAt: {
       type: Date,

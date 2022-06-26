@@ -9,11 +9,25 @@ const getUsersView = async (req, res, next) => {
   try {
     const users = await User.find();
 
-    console.log(res.user);
+    // console.log(req.token);
     res.status(200).render('userTable', {
       title: 'User',
       users,
     });
+  } catch (err) {
+    next(err);
+  }
+};
+const getLoginView = async (req, res, next) => {
+  try {
+    // console.log(req.cookies);
+    if (req.cookies.jwt) {
+      res.redirect('http://localhost:3000/users');
+    } else {
+      res.status(200).render('login', {
+        title: 'Login',
+      });
+    }
   } catch (err) {
     next(err);
   }
@@ -109,6 +123,7 @@ const getUpdatePlantView = async (req, res, next) => {
 const getTransactionsView = async (req, res, next) => {
   try {
     const transactions = await Transaction.find();
+    console.log(transactions);
     res.status(200).render('transactionTable', {
       title: 'Transaction',
       transactions,
@@ -120,6 +135,7 @@ const getTransactionsView = async (req, res, next) => {
 
 module.exports = {
   getUsersView,
+  getLoginView,
   getStoresView,
   getPlantsView,
   getAddPlantView,

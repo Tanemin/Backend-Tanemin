@@ -7,7 +7,11 @@ const Transaction = require('./validator');
 
 const getAllTransactions = async (req, res, next) => {
   try {
-    const transaction = await Transaction.find();
+    const transaction = await Transaction.find().populate({
+      path: 'plant',
+      select:
+        'plantName price store imageCover stock ratingsAverage ratingsQuantity sold searchCount viewCount',
+    });
 
     res.status(200).json({
       status: 'success',
@@ -59,7 +63,11 @@ const createTransaction = async (req, res, next) => {
 
 const getTransactionById = async (req, res, next) => {
   try {
-    const transaction = await Transaction.findById(req.params.id);
+    const transaction = await Transaction.findById(req.params.id).populate({
+      path: 'plant',
+      select:
+        'plantName price store imageCover stock ratingsAverage ratingsQuantity sold searchCount viewCount',
+    });
 
     if (!transaction) {
       return next(new AppError('No Transaction found with that ID', 404));

@@ -1,27 +1,28 @@
 extends base
 
 block content 
-    .col.bg-light
-      .card.p-5.shadow.mt-5.me-5
-            .row.mb-5
-              .col 
-                h1= `${title}`
-            .row
-              table.table
-                thead
-                  tr
-                    th(scope='col') #
-                    th(scope='col') User
-                    th(scope='col') Plant
-                    th(scope='col') Ammount
-                tbody
-                  each transaction, i in transactions
-                      tr
-                        th(scope='row')= `${i + 1}`
-                        td=`${transaction.user}`
-                        td=`${transaction.plant}`
-                        td=`${transaction.ammount}`
-                        td
-                          button.btn.btn-warning.me-1(type='button') Update
+  include _navside
+  .col.bg-light
+    .card.p-5.shadow.mt-5.me-5
+      .row.mb-5
+        .col 
+          h1= `${title}`
+      .row
+        table.table
+          thead
+            tr
+              th(scope='col') #
+              th(scope='col') User
+              th(scope='col') Plant
+              th(scope='col') Ammount
+          tbody
+            each transaction, i in transactions
+              tr
+                th(scope='row')= `${i + 1}`
+                td=`${transaction.user}`
+                td=`${transaction.plant}`
+                td=`${transaction.ammount}`
+                td
+                  button.btn.btn-warning.me-1(type='button') Update
 
-                          button.btn.btn-danger.ms-1(type='button') Delete
+                  button.btn.btn-danger.ms-1(type='button') Delete

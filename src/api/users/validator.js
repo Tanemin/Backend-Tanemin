@@ -25,7 +25,10 @@ const userSchema = new mongoose.Schema(
       default: 'user',
     },
     phoneNumber: Number,
-    photo: String,
+    photo: {
+      type: String,
+      default: 'default.jpg',
+    },
     debitCard: [String],
     address: {
       city: String,

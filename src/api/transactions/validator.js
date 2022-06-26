@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const mongoose = require('mongoose');
 const Plant = require('../plants/validator');
 
@@ -33,14 +34,14 @@ transactionSchema.pre(/^find/, function (next) {
   next();
 });
 
-transactionSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'plant',
-    select:
-      'plantName price store imageCover stock ratingsAverage ratingsQuantity sold searchCount viewCount',
-  });
-  next();
-});
+// transactionSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: 'plant',
+//     select:
+//       'plantName price store imageCover stock ratingsAverage ratingsQuantity sold searchCount viewCount',
+//   });
+//   next();
+// });
 
 transactionSchema.statics.calculateSumStocks = async function (
   plantId,
