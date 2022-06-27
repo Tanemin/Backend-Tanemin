@@ -81,7 +81,7 @@ const signIn = async (req, res, next) => {
 const logout = (req, res) => {
   // console.log('haha', res.cookie.jwt);
   res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() + 10 * 1000),
+    expires: new Date(Date.now() + 10),
     httpOnly: true,
   });
   res.status(200).json({ status: 'success' });
