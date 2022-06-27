@@ -9,7 +9,6 @@ const getUsersView = async (req, res, next) => {
   try {
     const users = await User.find();
 
-    // console.log(req.token);
     res.status(200).render('userTable', {
       title: 'User',
       users,
@@ -20,9 +19,8 @@ const getUsersView = async (req, res, next) => {
 };
 const getLoginView = async (req, res, next) => {
   try {
-    // console.log(req.cookies);
     if (req.cookies.jwt) {
-      res.redirect('http://localhost:3000/users');
+      res.redirect('https://tanemin.herokuapp.com//users');
     } else {
       res.status(200).render('login', {
         title: 'Login',
@@ -72,11 +70,15 @@ const deleteStoreView = async (req, res, next) => {
       fs.unlinkSync(`public/img/stores/${oldStore.imageCover}`);
     }
     await Store.findByIdAndDelete(req.params.id);
-    const stores = await Store.find();
-    res.status(200).render('storeTable', {
-      title: 'Store',
-      stores,
-    });
+    res.redirect('/stores');
+  } catch (err) {
+    next(err);
+  }
+};
+const deletePlantView = async (req, res, next) => {
+  try {
+    await Plant.findByIdAndDelete(req.params.id);
+    res.redirect('/plants');
   } catch (err) {
     next(err);
   }
@@ -107,7 +109,10 @@ const getAddPlantView = async (req, res, next) => {
 };
 const getUpdatePlantView = async (req, res, next) => {
   try {
-    const plant = await Plant.findById(req.params.id);
+    const plant = await Plant.findById(req.params.id).populate({
+      path: 'store',
+      select: 'storeName',
+    });
 
     const stores = await Store.find();
 
@@ -143,5 +148,6 @@ module.exports = {
   getTransactionsView,
   getAddStoreView,
   updateAddStoreView,
+  deletePlantView,
   deleteStoreView,
 };

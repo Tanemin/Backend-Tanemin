@@ -14,6 +14,8 @@ block content
           thead
             tr
               th(scope='col') #
+              th(scope='col') Image
+              th(scope='col') Galery
               th(scope='col') Plant Name
               th(scope='col') Price
               th(scope='col') Stock
@@ -22,10 +24,15 @@ block content
             each plant, i in plants
               tr
                 th(scope='row')= `${i + 1}`
+                td
+                  img.img-thumbnail(src=`/img/plants/${plant.imageCover}` alt=`${plant.plantName}` style='width: 150px; height: 150px ; object-fit: cover;' )
+                td
+                  each galery in plant.imageGalery
+                    img.img-thumbnail(src=`/img/plants/${galery}` alt=`${plant.plantName}` style='width: 75px; height: 75px ; object-fit: cover;' )
                 td=`${plant.plantName}`
                 td=`${plant.price}`
                 td=`${plant.stock}`
                 td
                   a.btn.btn-warning.me-1(href=`/plants/update/${plant._id}`) Update
-
-                  a.btn.btn-danger.ms-1(href='button') Delete
+                  form#formDeletePlant(action=`/plants/delete/${plant._id}`)
+                    button#btnDeleteStore.btn.btn-danger.ms-1 Delete

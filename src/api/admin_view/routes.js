@@ -11,6 +11,7 @@ const {
   deleteStoreView,
   getUpdatePlantView,
   getLoginView,
+  deletePlantView,
 } = require('./controller');
 //
 const ViewRouter = express.Router();
@@ -20,6 +21,7 @@ ViewRouter.get('/users', isLoggedIn, protect, getUsersView);
 ViewRouter.get('/plants', isLoggedIn, protect, getPlantsView);
 ViewRouter.get('/plants/add-plant', isLoggedIn, protect, getAddPlantView);
 ViewRouter.get('/plants/update/:id', isLoggedIn, protect, getUpdatePlantView);
+ViewRouter.get('/plants/delete/:id', isLoggedIn, protect, deletePlantView);
 ViewRouter.get('/stores', isLoggedIn, protect, getStoresView);
 ViewRouter.get('/stores/add-store', isLoggedIn, protect, getAddStoreView);
 ViewRouter.get('/stores/update/:id', isLoggedIn, protect, updateAddStoreView);

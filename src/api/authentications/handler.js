@@ -66,7 +66,6 @@ const signIn = async (req, res, next) => {
       ),
       httpOnly: true,
     };
-    // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
     console.log('login');
     res.cookie('jwt', token, cookieOptions);
@@ -78,6 +77,14 @@ const signIn = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+const logout = (req, res) => {
+  // console.log('haha', res.cookie.jwt);
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({ status: 'success' });
 };
 
 const protect = async (req, res, next) => {
@@ -148,7 +155,7 @@ const isLoggedIn = async (req, res, next) => {
       return next(err);
     }
   } else if (!req.cookies.jwt) {
-    return res.redirect('http://localhost:3000/');
+    return res.redirect('https://tanemin.herokuapp.com//');
   }
   next();
 };
@@ -252,4 +259,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   isLoggedIn,
+  logout,
 };

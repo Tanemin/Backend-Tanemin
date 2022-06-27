@@ -23,7 +23,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
 
-// 1) MIDDLEWARES
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/bs', express.static(`${__dirname}/../node_modules/bootstrap/dist`));
 if (process.env.NODE_ENV === 'development') {
@@ -37,8 +36,6 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
-
-// 2) ROUTES
 
 app.use('/', ViewRouter);
 app.use('/api/v1/users', userRouter);

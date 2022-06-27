@@ -13,6 +13,8 @@ const {
   aliasTopPlant,
   aliasTopSearch,
   aliasTopView,
+  uploadPlantImages,
+  resizePlantImages,
   // searchPlant,
 } = require('./handler');
 
@@ -29,12 +31,24 @@ plantRouter.route('/topViews').get(aliasTopView, getAllPlants);
 plantRouter
   .route('/')
   .get(getAllPlants)
-  .post(protect, generateAccess('administrator'), createPlant);
+  .post(
+    protect,
+    generateAccess('administrator'),
+    uploadPlantImages,
+    resizePlantImages,
+    createPlant,
+  );
 
 plantRouter
   .route('/:id')
   .get(getPlantById)
-  .patch(protect, generateAccess('administrator'), UpdatePlantById)
+  .patch(
+    protect,
+    generateAccess('administrator'),
+    uploadPlantImages,
+    resizePlantImages,
+    UpdatePlantById,
+  )
   .delete(protect, generateAccess('administrator'), deletePlantById);
 
 module.exports = plantRouter;

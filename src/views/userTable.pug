@@ -3,28 +3,30 @@ extends base
 block content 
   include _navside
   .col.bg-light
-      .card.p-5.shadow.mt-5.me-5
-         .row.mb-5
-           .col 
-             h1= `${title}`
-         .row
-           table.table
-             thead
-               tr
-                 th(scope='col') #
-                 th(scope='col') Fullname
-                 th(scope='col') Email
-                 th(scope='col') Role
-                 th(scope='col') Actions
-             tbody
-               each user, i in users
-                 tr
-                   th(scope='row')= `${i + 1}`
-                   td=`${user.fullname}`
-                   td=`${user.email}`
-                   td=`${user.role}`
-                   td
-                     button.btn.btn-warning.me-1(type='button') Update
-      
-                     button.btn.btn-danger.ms-1(type='button') Delete
-      
+    .card.p-5.shadow.mt-5.me-5
+      .row.mb-5
+        .col 
+          h1= `${title}`
+      .row
+        table.table
+          thead
+            tr
+              th(scope='col') #
+              th(scope='col') Image
+              th(scope='col') Fullname
+              th(scope='col') Email
+              th(scope='col') Role
+              th(scope='col') Actions
+          tbody
+            each user, i in users
+              tr
+                th(scope='row')= `${i + 1}`
+                td
+                  img.img-thumbnail(src=`/img/users/${user.photo}` alt=`${user.fullname}` style='width: 100px; height: 100px ; object-fit: cover;' )
+                td=`${user.fullname}`
+                td=`${user.email}`
+                td=`${user.role}`
+                td
+                  button.btn.btn-warning.me-1(type='button') Update
+
+                  button.btn.btn-danger.ms-1(type='button') Delete

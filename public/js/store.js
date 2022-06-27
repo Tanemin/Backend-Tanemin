@@ -17,7 +17,7 @@ if (addStoreForm) {
     form.append('contact', document.querySelector('#contact').value);
     form.append('imageCover', document.querySelector('#imageCover').files[0]);
 
-    console.log(form);
+    console.log(document.querySelector('#imageCover').files[0]);
     createStore(form, 'data');
   });
 }

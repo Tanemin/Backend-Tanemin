@@ -1,10 +1,62 @@
 /* eslint-disable consistent-return */
 const multer = require('multer');
+const sharp = require('sharp');
 const AppError = require('../../exceptions/app-error');
 const APIFeatures = require('../../utils/api-features');
 const Plant = require('./validator');
 
-const upload = multer({ dest: 'public/img/plants' });
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new AppError('No Images', 400), false);
+  }
+};
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+const uploadPlantImages = upload.fields([
+  { name: 'imageCover', maxCount: 1 },
+  { name: 'imageGalery', maxCount: 6 },
+]);
+
+const resizePlantImages = async (req, res, next) => {
+  try {
+    if (!req.files.imageCover) return next();
+
+    req.body.imageCover = `plant-${Date.now()}-cover.jpeg`;
+
+    await sharp(req.files.imageCover[0].buffer)
+      .resize(2000, 1333)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toFile(`public/img/plants/${req.body.imageCover}`);
+
+    if (!req.files.imageGalery) return next();
+    req.body.imageGalery = [];
+    await Promise.all(
+      req.files.imageGalery.map(async (file, i) => {
+        const filename = `plantGalery-${Date.now()}-${i + 1}.jpeg`;
+
+        await sharp(file.buffer)
+          .resize(2000, 1333)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(`public/img/plants/${filename}`);
+
+        req.body.imageGalery.push(filename);
+      }),
+    );
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
 
 const getAllPlants = async (req, res, next) => {
   try {
@@ -103,6 +155,9 @@ const getPlantById = async (req, res, next) => {
 const UpdatePlantById = async (req, res, next) => {
   try {
     const { id } = req.params;
+    // const oldPlant = await Plant.findById(id);
+
+    // console.log(req.body.imageCover, oldPlant.imageCover);
 
     req.body.updatedAt = Date.now();
     const newPlant = await Plant.findByIdAndUpdate(id, req.body, {
@@ -171,4 +226,6 @@ module.exports = {
   aliasTopPlant,
   aliasTopSearch,
   aliasTopView,
+  uploadPlantImages,
+  resizePlantImages,
 };

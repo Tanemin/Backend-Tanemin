@@ -1,6 +1,26 @@
 /* eslint-disable  */
 
 const loginForm = document.querySelector('#loginForm');
+const btnLogout = document.querySelector('#btnLogout');
+const logout = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: 'https://tanemin.herokuapp.com/api/v1/users/logout',
+    });
+    if ((res.data.status = 'success')) location.reload(true);
+  } catch (err) {
+    console.log(err.response);
+    showAlert('error', 'Error logging out! Try again.');
+  }
+};
+
+if (btnLogout) {
+  btnLogout.addEventListener('click', (e) => {
+    e.preventDefault();
+    logout();
+  });
+}
 
 if (loginForm) {
   loginForm.addEventListener('submit', (e) => {
@@ -15,7 +35,7 @@ const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/users/signin',
+      url: `https://tanemin.herokuapp.com/api/v1/users/signin`,
       data: {
         email: email,
         password: password,
@@ -23,7 +43,6 @@ const login = async (email, password) => {
     });
 
     if (res.data.status === 'success') {
-      //   showAlert('success', 'Logged in successfully!');
       window.setTimeout(() => {
         location.assign('/');
       }, 1500);
@@ -32,6 +51,5 @@ const login = async (email, password) => {
     }
   } catch (err) {
     console.log(err);
-    // showAlert('error', err);
   }
 };
