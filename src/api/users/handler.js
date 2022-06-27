@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 const multer = require('multer');
-const fs = require('fs');
+// const fs = require('fs');
 
 const AppError = require('../../exceptions/app-error');
 const filterObject = require('../../utils/utils');
@@ -135,9 +135,9 @@ const updateCurrentUser = async (req, res, next) => {
 
     const oldCurrentUser = await User.findById(req.user.id);
     if (req.file) {
-      if (oldCurrentUser.photo !== 'default.jpg') {
-        fs.unlinkSync(`public/img/stores/${oldCurrentUser.photo}`);
-      }
+      // if (oldCurrentUser.photo !== 'default.jpg') {
+      //   fs.unlinkSync(`public/img/stores/${oldCurrentUser.photo}`);
+      // }
       req.body.photo = req.file.filename;
     } else {
       req.body.photo = oldCurrentUser.photo;

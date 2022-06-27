@@ -217,7 +217,8 @@ if (updatePlantForm) {
     habitats.forEach((el) => {
       form.append('habitat', el);
     });
-    form.append('imageCover', document.querySelector('#imageCover').files[0]);
+    if (document.querySelector('#imageCover').files[0])
+      form.append('imageCover', document.querySelector('#imageCover').files[0]);
     if (image1) form.append('imageGalery', image1);
     if (image2) form.append('imageGalery', image2);
     if (image3) form.append('imageGalery', image3);

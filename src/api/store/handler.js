@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 const multer = require('multer');
-const fs = require('fs');
+// const fs = require('fs');
 const AppError = require('../../exceptions/app-error');
 const APIFeatures = require('../../utils/api-features');
 const Store = require('./validator');
@@ -96,9 +96,9 @@ const updateStoreById = async (req, res, next) => {
     const { id } = req.params;
     const oldStore = await Store.findById(id);
     if (req.file) {
-      if (oldStore.imageCover !== 'default.jpg') {
-        fs.unlinkSync(`public/img/stores/${oldStore.imageCover}`);
-      }
+      // if (oldStore.imageCover !== 'default.jpg') {
+      //   fs.unlinkSync(`public/img/stores/${oldStore.imageCover}`);
+      // }
       req.body.imageCover = req.file.filename;
     } else {
       req.body.imageCover = oldStore.imageCover;
@@ -125,10 +125,10 @@ const updateStoreById = async (req, res, next) => {
 const deleteStoreById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const oldStore = await Store.findById(id);
-    if (oldStore.imageCover !== 'default.jpg') {
-      fs.unlinkSync(`public/img/stores/${oldStore.imageCover}`);
-    }
+    // const oldStore = await Store.findById(id);
+    // if (oldStore.imageCover !== 'default.jpg') {
+    //   fs.unlinkSync(`public/img/stores/${oldStore.imageCover}`);
+    // }
     const store = await Store.findByIdAndDelete(id);
 
     if (!store) {
