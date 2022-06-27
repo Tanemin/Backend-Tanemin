@@ -17,7 +17,6 @@ if (addStoreForm) {
     form.append('contact', document.querySelector('#contact').value);
     form.append('imageCover', document.querySelector('#imageCover').files[0]);
 
-    console.log(document.querySelector('#imageCover').files[0]);
     createStore(form, 'data');
   });
 }
@@ -35,14 +34,12 @@ if (updateStoreForm) {
       form.append('imageCover', document.querySelector('#imageCover').files[0]);
     }
 
-    console.log(document.querySelector('#imageCover').files[0]);
     updateStore(id, form);
   });
 }
 
 const createStore = async (data) => {
   try {
-    console.log('sukses');
     const res = await axios({
       method: 'POST',
       url: `https://tanemin.herokuapp.com/api/v1/store`,
@@ -54,12 +51,11 @@ const createStore = async (data) => {
       }, 1000);
     }
   } catch (err) {
-    console.log(err.response.data);
+    alert(err.response.data.message);
   }
 };
 const updateStore = async (id, data) => {
   try {
-    console.log(data);
     const res = await axios({
       method: 'PATCH',
       url: `https://tanemin.herokuapp.com/api/v1/store/${id}`,
@@ -71,6 +67,6 @@ const updateStore = async (id, data) => {
       }, 1000);
     }
   } catch (err) {
-    console.log(err.response.data);
+    alert(err.response.data.message);
   }
 };

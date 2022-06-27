@@ -157,8 +157,6 @@ const UpdatePlantById = async (req, res, next) => {
     const { id } = req.params;
     // const oldPlant = await Plant.findById(id);
 
-    // console.log(req.body.imageCover, oldPlant.imageCover);
-
     req.body.updatedAt = Date.now();
     const newPlant = await Plant.findByIdAndUpdate(id, req.body, {
       new: true,

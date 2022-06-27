@@ -3,6 +3,7 @@
 const loginForm = document.querySelector('#loginForm');
 const btnLogout = document.querySelector('#btnLogout');
 const logout = async () => {
+  s;
   try {
     const res = await axios({
       method: 'GET',
@@ -10,8 +11,7 @@ const logout = async () => {
     });
     if ((res.data.status = 'success')) location.reload(true);
   } catch (err) {
-    console.log(err.response);
-    showAlert('error', 'Error logging out! Try again.');
+    alert('Error logging out! Try again.');
   }
 };
 
@@ -46,10 +46,8 @@ const login = async (email, password) => {
       window.setTimeout(() => {
         location.assign('/');
       }, 1500);
-
-      console.log(res.data);
     }
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
   }
 };

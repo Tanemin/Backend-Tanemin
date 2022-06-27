@@ -27,6 +27,5 @@ block content
                 td=`${user.email}`
                 td=`${user.role}`
                 td
-                  button.btn.btn-warning.me-1(type='button') Update
-
-                  button.btn.btn-danger.ms-1(type='button') Delete
+                  form#formDeleteAccount(action=`/users/delete/${user._id}`)
+                    button.btn.btn-danger.ms-1 Delete

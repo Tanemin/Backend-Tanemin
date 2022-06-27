@@ -61,7 +61,6 @@ reviewSchema.statics.calculateAverageRatings = async function (plantId) {
       },
     },
   ]);
-  // console.log(stats[0].sumRating);
   if (stats.length > 0) {
     await Plant.findByIdAndUpdate(plantId, {
       ratingsQuantity: stats[0].sumRating,

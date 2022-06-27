@@ -19,6 +19,7 @@ const {
   deleteUserById,
   UpdateUserById,
   getUserById,
+  uploadUserPhoto,
 } = require('./handler');
 
 const userRouter = express.Router();
@@ -37,7 +38,7 @@ userRouter.route('/resetPassword/:token').post(resetPassword);
 userRouter
   .route('/profile')
   .get(protect, getCurrentUser)
-  .patch(protect, updateCurrentUser);
+  .patch(protect, uploadUserPhoto, updateCurrentUser);
 
 userRouter
   .route('/')

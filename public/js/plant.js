@@ -1,6 +1,7 @@
 /* eslint-disable  */
 const addPlantForm = document.querySelector('#addPlantForm');
 const updatePlantForm = document.querySelector('#updatePlantForm');
+
 const typeValue = () => {
   const type = [];
   type.push(
@@ -152,10 +153,22 @@ if (addPlantForm) {
     form.append('height', document.querySelector('#height').value);
     form.append('diameter', document.querySelector('#diameter').value);
     form.append('duration', document.querySelector('#duration').value);
-    form.append('type', types);
-    form.append('season', seasons);
-    form.append('habitat', habitats);
-    form.append('tags', tags);
+    // form.append('type', types);
+    // form.append('season', seasons);
+    // form.append('habitat', habitats);
+    tags.forEach((el) => {
+      form.append('tags', el);
+    });
+    types.forEach((el) => {
+      form.append('type', el);
+    });
+    seasons.forEach((el) => {
+      form.append('season', el);
+    });
+    habitats.forEach((el) => {
+      form.append('habitat', el);
+    });
+    // form.append('tags', tag);
     form.append('imageCover', document.querySelector('#imageCover').files[0]);
     if (image1) form.append('imageGalery', image1);
     if (image2) form.append('imageGalery', image2);
@@ -192,10 +205,18 @@ if (updatePlantForm) {
     form.append('height', document.querySelector('#height').value);
     form.append('diameter', document.querySelector('#diameter').value);
     form.append('duration', document.querySelector('#duration').value);
-    form.append('type', types);
-    form.append('season', seasons);
-    form.append('habitat', habitats);
-    form.append('tags', tags);
+    tags.forEach((el) => {
+      form.append('tags', el);
+    });
+    types.forEach((el) => {
+      form.append('type', el);
+    });
+    seasons.forEach((el) => {
+      form.append('season', el);
+    });
+    habitats.forEach((el) => {
+      form.append('habitat', el);
+    });
     form.append('imageCover', document.querySelector('#imageCover').files[0]);
     if (image1) form.append('imageGalery', image1);
     if (image2) form.append('imageGalery', image2);
@@ -209,7 +230,6 @@ if (updatePlantForm) {
 
 const createPlant = async (data) => {
   try {
-    console.log('sukses');
     const res = await axios({
       method: 'POST',
       url: `https://tanemin.herokuapp.com/api/v1/plants`,
@@ -221,12 +241,11 @@ const createPlant = async (data) => {
       }, 1000);
     }
   } catch (err) {
-    console.log(err.response.data);
+    alert(err.response.data.message);
   }
 };
 const updatePlant = async (id, data) => {
   try {
-    console.log('sukses');
     const res = await axios({
       method: 'PATCH',
       url: `https://tanemin.herokuapp.com/api/v1/plants/${id}`,
@@ -238,6 +257,6 @@ const updatePlant = async (id, data) => {
       }, 1000);
     }
   } catch (err) {
-    console.log(err.response.data);
+    alert(err.response.data.message);
   }
 };

@@ -75,6 +75,14 @@ const deleteStoreView = async (req, res, next) => {
     next(err);
   }
 };
+const deleteUserView = async (req, res, next) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.redirect('/users');
+  } catch (err) {
+    next(err);
+  }
+};
 const deletePlantView = async (req, res, next) => {
   try {
     await Plant.findByIdAndDelete(req.params.id);
@@ -128,7 +136,6 @@ const getUpdatePlantView = async (req, res, next) => {
 const getTransactionsView = async (req, res, next) => {
   try {
     const transactions = await Transaction.find();
-    console.log(transactions);
     res.status(200).render('transactionTable', {
       title: 'Transaction',
       transactions,
@@ -150,4 +157,5 @@ module.exports = {
   updateAddStoreView,
   deletePlantView,
   deleteStoreView,
+  deleteUserView,
 };

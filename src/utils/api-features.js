@@ -57,7 +57,6 @@ class APIFeatures {
       this.query = this.query.find({
         searchQuery: { $regex: new RegExp(`.*${slugQuery}.*`) },
       });
-      console.log(this.queryString.search);
     }
 
     return this;

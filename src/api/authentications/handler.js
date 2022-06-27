@@ -67,7 +67,6 @@ const signIn = async (req, res, next) => {
       httpOnly: true,
     };
 
-    console.log('login');
     res.cookie('jwt', token, cookieOptions);
     res.status(201).json({
       status: 'success',
@@ -79,7 +78,6 @@ const signIn = async (req, res, next) => {
   }
 };
 const logout = (req, res) => {
-  // console.log('haha', res.cookie.jwt);
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10),
     httpOnly: true,
@@ -101,7 +99,6 @@ const protect = async (req, res, next) => {
     } else if (req.cookies.jwt) {
       token = req.cookies.jwt;
     }
-    // console.log(token);
 
     if (!token) {
       // return res.status(200).render('login', {
@@ -181,7 +178,6 @@ const forgotPassword = async (req, res, next) => {
   }
 
   const resetToken = crypto.randomBytes(32).toString('hex');
-  // console.log(resetToken);
 
   const encryptedToken = crypto
     .createHash('sha256')
@@ -190,8 +186,6 @@ const forgotPassword = async (req, res, next) => {
 
   user.passwordResetToken = encryptedToken;
   user.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
-  console.log('mengirim email');
-  console.log(`${resetToken} dan ${user.passwordResetToken}`);
   await user.save({ validateBeforeSave: false });
 
   const resetURL = `${req.protocol}://${req.get(
@@ -230,8 +224,6 @@ const resetPassword = async (req, res, next) => {
     passwordResetToken: hashedToken,
     passwordResetExpires: { $gt: Date.now() },
   });
-  console.log('reset password');
-  console.log(`${req.params.token} dan ${hashedToken}`);
 
   if (!user) {
     return next(new AppError('Token is invalid', 400));
