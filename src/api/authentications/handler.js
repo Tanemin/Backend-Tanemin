@@ -155,7 +155,7 @@ const isLoggedIn = async (req, res, next) => {
       return next(err);
     }
   } else if (!req.cookies.jwt) {
-    return res.redirect('https://tanemin.herokuapp.com//');
+    return res.redirect('https://tanemin.herokuapp.com/');
   }
   next();
 };
