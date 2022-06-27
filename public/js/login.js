@@ -3,7 +3,6 @@
 const loginForm = document.querySelector('#loginForm');
 const btnLogout = document.querySelector('#btnLogout');
 const logout = async () => {
-  s;
   try {
     const res = await axios({
       method: 'GET',
