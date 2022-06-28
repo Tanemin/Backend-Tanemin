@@ -20,7 +20,7 @@ const getUsersView = async (req, res, next) => {
 const getLoginView = async (req, res, next) => {
   try {
     if (req.cookies.jwt) {
-      res.redirect('https://tanemin.herokuapp.com/users');
+      res.redirect('http://localhost:3000/users');
     } else {
       res.status(200).render('login', {
         title: 'Login',
@@ -93,7 +93,10 @@ const deletePlantView = async (req, res, next) => {
 };
 const getPlantsView = async (req, res, next) => {
   try {
-    const plants = await Plant.find();
+    const plants = await Plant.find().populate({
+      path: 'store',
+      select: 'storeName',
+    });
 
     res.status(200).render('plantTable', {
       title: 'Plant',

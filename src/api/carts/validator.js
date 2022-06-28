@@ -35,7 +35,8 @@ cartSchema.pre(/^findOne/, function (next) {
     select: 'fullname email',
   }).populate({
     path: 'plant',
-    select: 'plantName price image stock ratingsAverage ratingsQuantity',
+    select:
+      'plantName price image stock ratingsAverage ratingsQuantity imageCover',
   });
 
   next();
@@ -43,7 +44,8 @@ cartSchema.pre(/^findOne/, function (next) {
 cartSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'plant',
-    select: 'plantName price image stock ratingsAverage ratingsQuantity',
+    select:
+      'plantName price image stock ratingsAverage ratingsQuantity imageCover',
   });
 
   next();

@@ -19,6 +19,7 @@ block content
               th(scope='col') Plant Name
               th(scope='col') Price
               th(scope='col') Stock
+              th(scope='col') Store
               th(scope='col') Actions
           tbody
             each plant, i in plants
@@ -32,6 +33,7 @@ block content
                 td=`${plant.plantName}`
                 td=`${plant.price}`
                 td=`${plant.stock}`
+                td=`${plant.store.storeName}`
                 td
                   a.btn.btn-warning.me-1(href=`/plants/update/${plant._id}`) Update
                   form#formDeletePlant(action=`/plants/delete/${plant._id}`)
