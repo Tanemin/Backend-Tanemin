@@ -42,7 +42,7 @@ const createStore = async (data) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: `http://localhost:3000/api/v1/store`,
+      url: `https://tanemin.herokuapp.com/api/v1/store`,
       data,
     });
     if (res.data.status === 'success') {
@@ -58,7 +58,7 @@ const updateStore = async (id, data) => {
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `http://localhost:3000/api/v1/store/${id}`,
+      url: `https://tanemin.herokuapp.com/api/v1/store/${id}`,
       data,
     });
     if (res.data.status === 'success') {

@@ -6,7 +6,7 @@ const logout = async () => {
   try {
     const res = await axios({
       method: 'GET',
-      url: 'http://localhost:3000/api/v1/users/logout',
+      url: 'https://tanemin.herokuapp.com/api/v1/users/logout',
     });
     if ((res.data.status = 'success')) location.reload(true);
   } catch (err) {
@@ -34,7 +34,7 @@ const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: `http://localhost:3000/api/v1/users/signin`,
+      url: `https://tanemin.herokuapp.com/api/v1/users/signin`,
       data: {
         email: email,
         password: password,

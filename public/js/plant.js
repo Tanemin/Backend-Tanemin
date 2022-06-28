@@ -233,7 +233,7 @@ const createPlant = async (data) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: `http://localhost:3000/api/v1/plants`,
+      url: `https://tanemin.herokuapp.com/api/v1/plants`,
       data,
     });
     if (res.data.status === 'success') {
@@ -249,7 +249,7 @@ const updatePlant = async (id, data) => {
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `http://localhost:3000/api/v1/plants/${id}`,
+      url: `https://tanemin.herokuapp.com/api/v1/plants/${id}`,
       data,
     });
     if (res.data.status === 'success') {

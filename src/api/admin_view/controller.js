@@ -20,7 +20,7 @@ const getUsersView = async (req, res, next) => {
 const getLoginView = async (req, res, next) => {
   try {
     if (req.cookies.jwt) {
-      res.redirect('http://localhost:3000/users');
+      res.redirect('https://tanemin.herokuapp.com/users');
     } else {
       res.status(200).render('login', {
         title: 'Login',
