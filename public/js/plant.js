@@ -68,6 +68,21 @@ const tagsValue = () => {
         : 'null'
     }`,
     `${
+      document.querySelector('#cbPerairan:checked')
+        ? document.querySelector('#cbPerairan:checked').value
+        : 'null'
+    }`,
+    `${
+      document.querySelector('#cbDaratan:checked')
+        ? document.querySelector('#cbDaratan:checked').value
+        : 'null'
+    }`,
+    `${
+      document.querySelector('#cbGurun:checked')
+        ? document.querySelector('#cbGurun:checked').value
+        : 'null'
+    }`,
+    `${
       document.querySelector('#cbHiasanLuarRuangan:checked')
         ? document.querySelector('#cbHiasanLuarRuangan:checked').value
         : 'null'
