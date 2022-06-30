@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 const AppError = require('../../exceptions/app-error');
+const Transaction = require('../transactions/validator');
 const Review = require('./validator');
 
 const getAllReview = async (req, res, next) => {
@@ -20,6 +21,18 @@ const getAllReview = async (req, res, next) => {
 
 const createReview = async (req, res, next) => {
   try {
+    if (req.body.plant && req.body.user) {
+      await Transaction.findOneAndUpdate(
+        {
+          plant: req.body.plant,
+          user: req.body.user,
+        },
+        {
+          isReview: true,
+        },
+      );
+    }
+
     const review = await Review.create(req.body);
 
     res.status(200).json({

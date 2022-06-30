@@ -18,9 +18,9 @@ const transactionSchema = new mongoose.Schema({
     ref: 'Plant',
     require: [true, 'Review must belong to a Plant'],
   },
-  status: {
+  isReview: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   CreatedAt: {
     type: Date,
