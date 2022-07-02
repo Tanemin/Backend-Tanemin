@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-// const fs = require('fs');
+
 const Plant = require('../plants/validator');
 const Store = require('../store/validator');
 const Transaction = require('../transactions/validator');
@@ -64,11 +64,6 @@ const updateAddStoreView = async (req, res, next) => {
 };
 const deleteStoreView = async (req, res, next) => {
   try {
-    // const { id } = req.params;
-    // const oldStore = await Store.findById(id);
-    // if (oldStore.imageCover !== 'default.jpg') {
-    //   fs.unlinkSync(`public/img/stores/${oldStore.imageCover}`);
-    // }
     await Store.findByIdAndDelete(req.params.id);
     res.redirect('/stores');
   } catch (err) {

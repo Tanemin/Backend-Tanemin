@@ -11,16 +11,13 @@ const plantSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      // required: [true, 'description is required'],
     },
     duration: {
       type: Number,
       default: 0,
-      // required: [true, 'description is required'],
     },
     price: {
       type: Number,
-      // required: [true, 'price is required'],
     },
     ratingsAverage: {
       type: Number,
@@ -32,7 +29,6 @@ const plantSchema = new mongoose.Schema(
     store: {
       type: mongoose.Schema.ObjectId,
       ref: 'Store',
-      // require: [true, 'Plant must belong to an Store'],
     },
     ratingsQuantity: {
       type: Number,
@@ -48,7 +44,6 @@ const plantSchema = new mongoose.Schema(
     },
     imageCover: {
       type: String,
-      // required: [true, 'image cover is required'],
     },
     imageGalery: [String],
     difficulty: String,

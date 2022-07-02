@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 const AppError = require('../../exceptions/app-error');
-// const APIFeatures = require('../../utils/api-features');
 const Cart = require('./validator');
 
 const getAllCarts = async (req, res, next) => {

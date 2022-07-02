@@ -101,10 +101,6 @@ const protect = async (req, res, next) => {
     }
 
     if (!token) {
-      // return res.status(200).render('login', {
-      //   title: 'Store',
-      //   // stores,
-      // });
       return next(
         new AppError(
           'You are not logged in! Please log in to get access.',
@@ -133,19 +129,16 @@ const protect = async (req, res, next) => {
 const isLoggedIn = async (req, res, next) => {
   if (req.cookies.jwt) {
     try {
-      // 1) verify token
       const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET,
       );
 
-      // 2) Check if user still exists
       const currentUser = await User.findById(decoded.id);
       if (!currentUser) {
         return next();
       }
 
-      // THERE IS A LOGGED IN USER
       res.locals.user = currentUser;
       return next();
     } catch (err) {
@@ -185,7 +178,7 @@ const forgotPassword = async (req, res, next) => {
     .digest('hex');
 
   user.passwordResetToken = encryptedToken;
-  user.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+  user.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   await user.save({ validateBeforeSave: false });
 
   const resetURL = `${req.protocol}://${req.get(

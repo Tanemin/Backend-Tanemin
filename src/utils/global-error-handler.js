@@ -39,19 +39,14 @@ const sendErrorDev = (err, res) => {
 };
 
 const sendErrorProd = (err, res) => {
-  // Operational, trusted error: send message to client
   if (err.isOperational) {
     res.status(err.statusCode).json({
       status: err.status,
       message: err.message,
     });
-
-    // Programming or other unknown error: don't leak error details
   } else {
-    // 1) Log error
     console.error(err);
 
-    // 2) Send generic message
     res.status(500).json({
       status: 'error',
       message: 'Something went very wrong!',
@@ -64,23 +59,23 @@ const globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
-  // if (process.env.NODE_ENV === 'development') {
-  sendErrorDev(err, res);
-  // } else if (process.env.NODE_ENV === 'production') {
-  //   let error = { ...err };
+  if (process.env.NODE_ENV === 'development') {
+    sendErrorDev(err, res);
+  } else if (process.env.NODE_ENV === 'production') {
+    let error = { ...err };
 
-  //   if (err.name === 'CastError') error = handleCastErrorDB(error);
-  //   if (err.code === 11000) error = handleDuplicateFieldsDB(error);
-  //   if (err.name === 'ValidationError') error = handleValidationErrorDB(error);
-  //   if (err.name === 'JsonWebTokenError') error = handleJWTError();
-  //   if (err.name === 'TokenExpiredError') error = handleJWTExpiredError();
+    if (err.name === 'CastError') error = handleCastErrorDB(error);
+    if (err.code === 11000) error = handleDuplicateFieldsDB(error);
+    if (err.name === 'ValidationError') error = handleValidationErrorDB(error);
+    if (err.name === 'JsonWebTokenError') error = handleJWTError();
+    if (err.name === 'TokenExpiredError') error = handleJWTExpiredError();
 
-  //   if (err.name === 'Error') {
-  //     sendErrorProd(err, res);
-  //   } else {
-  //     sendErrorProd(error, res);
-  //   }
-  // }
+    if (err.name === 'Error') {
+      sendErrorProd(err, res);
+    } else {
+      sendErrorProd(error, res);
+    }
+  }
 };
 
 module.exports = globalErrorHandler;

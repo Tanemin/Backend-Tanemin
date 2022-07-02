@@ -168,9 +168,6 @@ if (addPlantForm) {
     form.append('height', document.querySelector('#height').value);
     form.append('diameter', document.querySelector('#diameter').value);
     form.append('duration', document.querySelector('#duration').value);
-    // form.append('type', types);
-    // form.append('season', seasons);
-    // form.append('habitat', habitats);
     tags.forEach((el) => {
       form.append('tags', el);
     });
@@ -183,7 +180,6 @@ if (addPlantForm) {
     habitats.forEach((el) => {
       form.append('habitat', el);
     });
-    // form.append('tags', tag);
     form.append('imageCover', document.querySelector('#imageCover').files[0]);
     if (image1) form.append('imageGalery', image1);
     if (image2) form.append('imageGalery', image2);

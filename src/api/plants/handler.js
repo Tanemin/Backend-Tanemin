@@ -155,7 +155,6 @@ const getPlantById = async (req, res, next) => {
 const UpdatePlantById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    // const oldPlant = await Plant.findById(id);
 
     req.body.updatedAt = Date.now();
     const newPlant = await Plant.findByIdAndUpdate(id, req.body, {

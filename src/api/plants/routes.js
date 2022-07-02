@@ -15,7 +15,6 @@ const {
   aliasTopView,
   uploadPlantImages,
   resizePlantImages,
-  // searchPlant,
 } = require('./handler');
 
 const plantRouter = express.Router();

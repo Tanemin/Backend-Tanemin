@@ -1,7 +1,5 @@
 const express = require('express');
-// const { protect, generateAccess } = require('../authentications/handler');
 
-// const plantRouter = require('../plants/routes');
 const {
   getAllStore,
   createStore,
